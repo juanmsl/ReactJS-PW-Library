@@ -5,18 +5,17 @@ import { Book , BookID , Borrow , Home , Login , Register , Root } from './views
 class App extends React.Component{
 	constructor(props){
 		super(props);
-		this.state={
-			userType:"prestamista"
+		this.state = {
+			userType: null
 		}
 	}
 
-	renderRoutes=()=>{
-		//TODO: this funk shall return route components defined in Views depending
+	renderRoutes = () => {
 		//on if logged in or not and user type
-		const { userType } = this.state
+		const { userType } = this.state;
+
 		if( userType === null ){
 			//return routes that unregistered user can use
-			console.log("not logged in");
 			return(
 				<Switch>
 					<Route exact path={"/"} render={(props)=>{return <Root {...props} />}} />
@@ -26,7 +25,6 @@ class App extends React.Component{
 			)
 		}else if( userType === "prestamista"){
 			//return routes that lender can use
-			console.log("logged in as prest");
 			return(
 				<Switch>
 					<Route exact path={"/"} render={(props)=>{return <Root {...props} />}} />
@@ -39,7 +37,6 @@ class App extends React.Component{
 			)
 		}else if( userType === "admin"){
 			//return routes that admin can use
-			console.log("logged in as admin");
 			return(
 				<Switch>
 					<Route exact path={"/"} render={(props)=>{return <Root {...props} />}} />
@@ -53,7 +50,7 @@ class App extends React.Component{
 				</Switch>
 			)
 		}
-	}
+	};
 
 	render(){
 		return(
