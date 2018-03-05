@@ -60,9 +60,9 @@ class Form extends React.Component{
 	}
 
 	render(){
-		const { id, className, autocomplete } = this.props
+		const { id, className, autocomplete, onSubmit } = this.props
 		return(
-			<form id={id} className={className} autoComplete={autocomplete}>
+			<form id={id} className={className} autoComplete={autocomplete} onSubmit={onSubmit}>
 				{this.transformChildren()}
 			</form>
 		);

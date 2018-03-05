@@ -1,38 +1,48 @@
 .pw-form {
     display: flex;
     flex-direction: column;
+    min-width: 350px;
 
     .pw-field {
         padding: $padding;
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-end;
+        border-bottom: 1px solid;
     }
 
-    .pw-label, .pw-input, .pw-submit {
+    .pw-label {
+        display: block;
+    }
+
+    .pw-label::before, .pw-input, .pw-submit {
         padding: $padding;
         outline: 0;
     }
 
     .pw-label::before {
-        width: 20px;
+        width: 40px;
         text-align: center;
+        border: 1px solid $gray-5;
+        background: $gray-E;
+        display: block;
     }
 
 	.pw-input {
-		border: 1px solid;
 		padding: $padding;
         flex-grow: 1;
         border: 0;
-        border-bottom: 2px solid;
 
 		&:focus, &:focus ~ .pw-label {
-			color: $blue-70;
+			color: $primary-color;
 		}
 	}
 
     .pw-submit {
         -webkit-appearance: none;
         background: $white;
+        margin-top: $margin;
+        padding: $padding $padding * 4;
+        align-self: center;
     }
 }
