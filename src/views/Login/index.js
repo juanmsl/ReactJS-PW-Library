@@ -15,12 +15,16 @@ class Login extends React.Component{
 		const { handleSubmit } = this
 		return(
 			<React.Fragment>
-				<Form id="login-form" onSubmit={handleSubmit}>
-					<Label id="username-label" name="username">Usuario</Label>
-					<Input id="username-input" name="username"></Input>
-					<Label id="password-label" name="password">Contraseña</Label>
-					<Input id="password-input" name="password" type="password"></Input>
-					<Button id="submit-button" submit>Ingresar</Button>
+				<Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
+                    <article className="pw-field">
+                        <Input id="username-input" name="username" placeholder="Usuario" className="pw-input"/>
+                        <Label id="username-label" htmlFor="username-input" name="username" className="pw-label pw pw-user"/>
+                    </article>
+                    <article className="pw-field">
+                        <Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input"/>
+                        <Label id="password-label" htmlFor="password-input" name="password" className="pw-label pw pw-key"/>
+                    </article>
+					<Button id="submit-button" className="pw-submit" submit>Ingresar</Button>
 				</Form>
 			</React.Fragment>
 		);

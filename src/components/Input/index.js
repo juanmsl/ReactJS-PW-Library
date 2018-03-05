@@ -23,10 +23,10 @@ class Input extends React.Component{
 	}
 
 	render(){
-		const { id , name , type="text" } = this.props
+		const { id , name , type="text", placeholder, className } = this.props
 		const { value } = this.state
 		return(
-			<input id={id} value={value} type={type} name={name} onChange={this.handleChange}/>
+			<input id={id} value={value} type={type} name={name} onChange={this.handleChange} placeholder={placeholder} className={className}/>
 		);
 	}
 }

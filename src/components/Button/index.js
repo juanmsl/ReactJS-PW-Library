@@ -16,10 +16,10 @@ class Button extends React.Component{
 	}
 
 	render(){
-		const { id , label=this.props.children } = this.props
+		const { id , label=this.props.children, className } = this.props
 		const { handleClick } = this
 		return(
-			<button id={id} onClick={handleClick}>{label}</button>
+			<button id={id} onClick={handleClick} className={className}>{label}</button>
 		);
 	}
 }
