@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Input } from '../'
+import { Button , Input , Field } from '../'
 
 class Form extends React.Component{
 	constructor(props){
@@ -28,41 +28,51 @@ class Form extends React.Component{
 	handleSubmit = (e) =>{
 		e.preventDefault()
 		if( this.props.onSubmit ){
-			this.props.onSubmit(this.state)
+			this.props.onSubmit(e,this.state)
+		}
+	}
+
+	transform = (child) =>{
+		if( child.type === Input ){
+			if( child.props.type === "password" ){
+				return React.cloneElement(child,{
+					onChange: this.handlePasswordChange
+				})
+			}else{
+				return React.cloneElement(child,{
+					onChange: this.handleInputChange
+				})
+			}
+		}else if( child.type === Button ){
+			if( child.props.submit ){
+				return React.cloneElement(child,{
+					onClick: this.handleSubmit
+				})
+			}else{
+				return child
+			}
+		}else{
+			return child
 		}
 	}
 
 	transformChildren = () =>{
 		return React.Children.map(this.props.children,(child) => {
-
-			if( child.type === Input ){
-				if( child.props.type === "password" ){
-					return React.cloneElement(child,{
-						onChange: this.handlePasswordChange
-					})
-				}else{
-					return React.cloneElement(child,{
-						onChange: this.handleInputChange
-					})
-				}
-			}else if( child.type === Button ){
-				if( child.props.submit ){
-					return React.cloneElement(child,{
-						onClick: this.handleSubmit
-					})
-				}else{
-					return child
-				}
+			if( child.type === Field ){
+				return React.cloneElement(child,{
+					transform: this.transform
+				})
 			}else{
-				return child
+				return this.transform(child)
 			}
 		})
 	}
 
 	render(){
-		const { id, className, autocomplete, onSubmit } = this.props
+		const { id, className, autocomplete } = this.props
+		const { handleSubmit } = this
 		return(
-			<form id={id} className={className} autoComplete={autocomplete} onSubmit={onSubmit}>
+			<form id={id} className={className} autoComplete={autocomplete} onSubmit={handleSubmit}>
 				{this.transformChildren()}
 			</form>
 		);
