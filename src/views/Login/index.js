@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Form , Input , Label } from '../../components'
+import { Button , Form , Input , Label , Field } from '../../components'
 
 class Login extends React.Component{
 	constructor(props){
@@ -7,10 +7,9 @@ class Login extends React.Component{
 		this.state={}
 	}
 
-	handleSubmit = (e) =>{
-    e.preventDefault();
+	handleSubmit = (e,state) =>{
 		//TODO: Change log for actual login process
-    console.log(e);
+    console.log(state);
 		//end todo
 	}
 
@@ -19,14 +18,14 @@ class Login extends React.Component{
 		return(
 			<section className="pw-form-container">
 				<Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
-					<article className="pw-field">
+					<Field>
 						<Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required="true"/>
 						<Label id="username-label" htmlFor="username-input" name="username" className="pw-label pw pw-user"/>
-					</article>
-					<article className="pw-field">
+					</Field>
+					<Field>
 						<Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required="true"/>
 						<Label id="password-label" htmlFor="password-input" name="password" className="pw-label pw pw-key"/>
-					</article>
+					</Field>
 					<Button id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
 				</Form>
 			</section>
