@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button , Form , Input , Label , Field } from '../../components'
+import { Button , Input , Label } from '../../components'
+import { Field , Form } from '../../collections'
 
 class Login extends React.Component{
 	constructor(props){
@@ -9,7 +10,7 @@ class Login extends React.Component{
 
 	handleSubmit = (e,state) =>{
 		//TODO: Change log for actual login process
-    console.log(state);
+        console.log(state);
 		//end todo
 	}
 
