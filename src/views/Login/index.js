@@ -8,28 +8,28 @@ class Login extends React.Component{
 	}
 
 	handleSubmit = (e) =>{
-        e.preventDefault();
-        console.log(e);
+    e.preventDefault();
+		//TODO: Change log for actual login process
+    console.log(e);
+		//end todo
 	}
 
 	render(){
 		const { handleSubmit } = this
 		return(
-			<React.Fragment>
-                <section className="pw-form-container">
-                    <Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
-                        <article className="pw-field">
-                            <Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required="true"/>
-                            <Label id="username-label" htmlFor="username-input" name="username" className="pw-label pw pw-user"/>
-                        </article>
-                        <article className="pw-field">
-                            <Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required="true"/>
-                            <Label id="password-label" htmlFor="password-input" name="password" className="pw-label pw pw-key"/>
-                        </article>
-                        <Button id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
-                    </Form>
-                </section>
-			</React.Fragment>
+			<section className="pw-form-container">
+				<Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
+					<article className="pw-field">
+						<Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required="true"/>
+						<Label id="username-label" htmlFor="username-input" name="username" className="pw-label pw pw-user"/>
+					</article>
+					<article className="pw-field">
+						<Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required="true"/>
+						<Label id="password-label" htmlFor="password-input" name="password" className="pw-label pw pw-key"/>
+					</article>
+					<Button id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
+				</Form>
+			</section>
 		);
 	}
 }
