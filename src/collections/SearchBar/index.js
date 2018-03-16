@@ -1,5 +1,6 @@
 import React from 'react'
-import { Input , Button } from '../../components'
+import { Input , Label } from '../../components'
+import { Field, Form } from '..'
 
 class SearchBar extends React.Component{
 	constructor(props){
@@ -7,13 +8,20 @@ class SearchBar extends React.Component{
 		this.state={}
 	}
 
+	handleSubmit = (e,state) =>{
+		//TODO: Change log for actual login process
+		console.log(state);
+		//end todo
+	}
+
 	render(){
-        const { className } = this.props
 		return(
-            <section className={className}>
-                <Input></Input>
-                <Button />
-            </section>
+			<Form id="search-form" onSubmit={this.handleSubmit} className="pw-form inline" autocomplete="off">
+				<Field>
+					<Input id="input" name="input" placeholder="Titulo del libro" className="pw-input" required={true}/>
+					<Label id="input-label" htmlFor="input" name="username" className="pw-label pwi pwi-search"/>
+				</Field>
+            </Form>
         );
 	}
 }

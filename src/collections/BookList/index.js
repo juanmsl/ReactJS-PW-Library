@@ -4,12 +4,12 @@ import { BookListItem } from '../../components'
 class BookList extends React.Component{
 	constructor(props){
 		super(props);
-        const { json=undefined } = props
-        if( !json ){
+        const { books=undefined } = props;
+        if( !books ){
             console.warn("BookList has no items");
         }
 		this.state={
-            items: json
+            items: books
         }
 	}
 
@@ -23,7 +23,7 @@ class BookList extends React.Component{
         if( this.props.onDeleteBook ){
             this.props.onDeleteBook(e,obj)
         }
-    }
+    };
 
     handleUpdate = (e,obj) =>{
         //For debugging only
@@ -35,27 +35,26 @@ class BookList extends React.Component{
         if( this.props.onUpdateBook ){
             this.props.onUpdateBook(e,obj)
         }
-    }
+    };
 
     renderRows = () =>{
-        const { items } = this.state
-        const { showButtons } = this.props
-        const { handleDelete , handleUpdate } = this
-        return Object.keys(items).map((item,index) => {
+        const { items } = this.state;
+        const { showButtons } = this.props;
+        const { handleDelete , handleUpdate } = this;
+        return items.map((item, index) => {
             return <BookListItem
                 onDelete={handleDelete}
                 onUpdate={handleUpdate}
                 key={index}
-                info={items[item]}
+                info={item}
                 showButtons={showButtons}/>
         })
-    }
+    };
 
 	render(){
-        const { renderRows } = this
-        const { className } = this.props
+        const { renderRows } = this;
 		return(
-            <section className={className}>
+            <section className="pw-book-list">
                 {renderRows()}
             </section>
         );
