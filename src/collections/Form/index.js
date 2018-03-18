@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button , Input , Field } from '../'
+import { Button , Input } from '../../components'
+import { Field } from '../'
 
 class Form extends React.Component{
 	constructor(props){

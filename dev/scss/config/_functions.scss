@@ -1,5 +1,5 @@
 @function image($image) {
-	@return url("../resources/images/" + $image);
+	@return url("../images/" + $image);
 }
 
 @function z-index($val){

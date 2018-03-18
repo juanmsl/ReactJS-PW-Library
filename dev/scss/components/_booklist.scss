@@ -1,0 +1,38 @@
+.pw-book-list {
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+
+	.item {
+		display: flex;
+		align-items: center;
+		padding: 0 $padding;
+		border-bottom: 1px solid $gray-C;
+
+		&:last-child {
+			border-bottom: 0;
+		}
+
+		&:hover {
+			background: $gray-E;
+		}
+	}
+
+	.item-info {
+		flex-grow: 1;
+	}
+
+	.item-title {
+
+	}
+
+	.item-button {
+		font-size: 0.7em;
+		padding: $padding / 2 $padding;
+		margin-left: $margin;
+	}
+
+	.item-autor {
+		font-size: 0.8em;
+	}
+}
