@@ -6,50 +6,67 @@ class App extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			userType: null
+			user: null,
+			data: this.props.data
 		}
 	}
 
 	renderRoot = () => {
-		return <Root data={this.props.data} />;
+		return <Root {...this.state} />;
 	};
 
 	renderLogin = () => {
-		return <Login data={this.props.data} />;
+		return <Login {...this.state} />;
+	};
+
+	renderHome = () => {
+		return <Home {...this.state} />;
+	};
+
+	renderBookId = ({match}) => {
+		return <BookID bookID={match.params.id} {...this.state} />;
+	};
+
+	renderBorrow = () => {
+		return <Borrow {...this.state} />;
+	};
+
+	renderBook = () => {
+		return <Book {...this.state} />;
+	};
+
+	renderRegister = () => {
+		return <Register {...this.state} />;
 	};
 
 	renderRoutes = () => {
-		//on if logged in or not and user type
-		const { userType } = this.state;
+		const { user } = this.state;
 
-		if( userType === null ){
-			//return routes that unregistered user can use
-			return(
+		if( user === null ) {
+			return (
 				<Switch>
 					<Route exact path={"/"} render={this.renderRoot} />
 					<Route exact path={"/login"} render={this.renderLogin} />
 					<Route render={ () => {return <Redirect to={'/'}/>} }/>
 				</Switch>
 			)
-		}else if( userType === "prestamista"){
-			//return routes that lender can use
+		} else if ( user.type === "prestamista") {
 			return(
 				<Switch>
-					<Route exact path={"/home"} render={(props)=>{return <Home {...props} userType={userType}/>}} />
-					<Route exact path={"/book/:id"} render={(props)=>{return <BookID {...props} bookID={props.match.params.id} userType={userType}/>}} />
-					<Route exact path={"/borrow"} render={(props)=>{return <Borrow {...props} />}} />
+					<Route exact path={"/home"} render={this.renderHome} />
+					<Route exact path={"/book/:id"} render={this.renderBookId} />
+					<Route exact path={"/borrow"} render={this.renderBorrow} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)
-		}else if( userType === "admin"){
-			//return routes that admin can use
+		} else if ( user.type === "admin") {
 			return(
 				<Switch>
-					<Route exact path={"/home"} render={(props)=>{return <Home {...props} userType={userType}/>}} />
-					<Route exact path={"/book/:id"} render={(props)=>{return <BookID {...props} bookID={props.match.params.id} userType={userType}/>}} />
-					<Route exact path={"/book"} render={(props)=>{return <Book {...props} userType={userType}/>}} />
-					<Route exact path={"/borrow"} render={(props)=>{return <Borrow {...props} />}} />
-					<Route exact path={"/register"} render={(props)=>{return <Register {...props} />}} />
+					<Route exact path={"/home"} render={this.renderHome} />
+					<Route exact path={"/book/:id"} render={this.renderBookId} />
+					<Route exact path={"/book"} render={this.renderBook} />
+					<Route exact path={"/borrow"} render={this.renderBorrow} />
+					<Route exact path={"/register"} render={this.renderRegister} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)

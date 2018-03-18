@@ -1,5 +1,6 @@
-import React from 'react'
-import { BookList , SearchBar } from '../../collections'
+import React from 'react';
+import { BookList , SearchBar } from '../../collections';
+import { BasePage } from "..";
 
 let testItems = [
     {
@@ -27,7 +28,7 @@ class Root extends React.Component{
 		const { app_name } = data;
 
 		return(
-            <React.Fragment>
+            <BasePage footer={true} navbar={false} >
                 <header className="pw-header">
                     <h1 className="wh-title double-line">{app_name}</h1>
                 </header>
@@ -35,7 +36,7 @@ class Root extends React.Component{
                     <SearchBar />
                     <BookList books={testItems} showButtons={true}/>
                 </main>
-            </React.Fragment>
+            </BasePage>
         );
 	}
 }

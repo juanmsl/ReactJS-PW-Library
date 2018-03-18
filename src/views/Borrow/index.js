@@ -1,4 +1,5 @@
 import React from 'react'
+import { BasePage } from "..";
 
 class Borrow extends React.Component{
 	constructor(props){
@@ -7,7 +8,11 @@ class Borrow extends React.Component{
 	}
 
 	render(){
-		return(<div> Borrow </div>);
+		return(
+			<BasePage footer={true} navbar={true}>
+				Borrow
+			</BasePage>
+		);
 	}
 }
 

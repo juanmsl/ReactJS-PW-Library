@@ -1,4 +1,5 @@
 import React from 'react'
+import { BasePage } from "..";
 
 class Register extends React.Component{
 	constructor(props){
@@ -7,7 +8,11 @@ class Register extends React.Component{
 	}
 
 	render(){
-		return(<div> Register </div>);
+		return(
+			<BasePage footer={true} navbar={true}>
+				Register
+			</BasePage>
+		);
 	}
 }
 

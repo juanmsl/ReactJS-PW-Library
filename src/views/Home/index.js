@@ -1,4 +1,5 @@
 import React from 'react'
+import { BasePage } from "..";
 
 class Home extends React.Component{
 	constructor(props){
@@ -7,7 +8,11 @@ class Home extends React.Component{
 	}
 
 	render(){
-		return(<div> Home </div>);
+		return(
+			<BasePage footer={true} navbar={true}>
+				Home
+			</BasePage>
+		);
 	}
 }
 
