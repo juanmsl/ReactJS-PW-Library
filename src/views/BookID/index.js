@@ -1,4 +1,5 @@
 import React from 'react'
+import { BasePage } from "..";
 
 class BookID extends React.Component{
 	constructor(props){
@@ -7,8 +8,13 @@ class BookID extends React.Component{
 	}
 
 	render(){
-		console.log(this.props);
-		return(<div> BookID </div>);
+		const { data } = this.props;
+
+		return(
+			<BasePage footer={true} navbar={true} data={data}>
+				Book ID
+			</BasePage>
+		);
 	}
 }
 

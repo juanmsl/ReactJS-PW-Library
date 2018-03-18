@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button , Form , Input , Label , Field } from '../../components'
+import { Button , Input , Label } from '../../components'
+import { Field , Form } from '../../collections'
 
 class Login extends React.Component{
 	constructor(props){
@@ -9,22 +10,22 @@ class Login extends React.Component{
 
 	handleSubmit = (e,state) =>{
 		//TODO: Change log for actual login process
-    console.log(state);
+        console.log(state);
 		//end todo
-	}
+	};
 
 	render(){
-		const { handleSubmit } = this
+		const { handleSubmit } = this;
 		return(
 			<section className="pw-form-container">
 				<Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
 					<Field>
-						<Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required="true"/>
-						<Label id="username-label" htmlFor="username-input" name="username" className="pw-label pw pw-user"/>
+						<Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required={true}/>
+						<Label id="username-label" htmlFor="username-input" name="username" className="pw-label pwi pwi-user"/>
 					</Field>
 					<Field>
-						<Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required="true"/>
-						<Label id="password-label" htmlFor="password-input" name="password" className="pw-label pw pw-key"/>
+						<Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required={true}/>
+						<Label id="password-label" htmlFor="password-input" name="password" className="pw-label pwi pwi-key"/>
 					</Field>
 					<Button id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
 				</Form>

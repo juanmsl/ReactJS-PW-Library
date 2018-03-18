@@ -1,0 +1,24 @@
+.pw-footer {
+	background: $primary-color;
+	margin-top: auto;
+
+	display: flex;
+	flex-direction: column;
+	font-size: 0.8rem;
+
+	.pw-copyright {
+		padding: $padding;
+		color: $white;
+		background: $primary-darker-color;
+	}
+
+	.pw-content {
+		display: flex;
+	}
+
+	.pw-section {
+
+	}
+
+
+}

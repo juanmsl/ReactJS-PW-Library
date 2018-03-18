@@ -7,16 +7,16 @@ class Button extends React.Component{
 	}
 
 	handleClick = (e) =>{
-		const { id } = this.props
+        e.preventDefault()
 		if( this.props.onClick ){
 			this.props.onClick(e,{
-				id:id
+				...this.props
 			})
 		}
 	}
 
 	render(){
-		const { id , label=this.props.children, className } = this.props
+		const { id , label=this.props.children, className="wh-button shadow" } = this.props
 		const { handleClick } = this
 		return(
 			<button id={id} onClick={handleClick} className={className}>{label}</button>
