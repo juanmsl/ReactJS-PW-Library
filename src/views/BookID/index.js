@@ -8,9 +8,10 @@ class BookID extends React.Component{
 	}
 
 	render(){
-		console.log(this.props);
+		const { data } = this.props;
+
 		return(
-			<BasePage footer={true} navbar={true}>
+			<BasePage footer={true} navbar={true} data={data}>
 				Book ID
 			</BasePage>
 		);

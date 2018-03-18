@@ -7,9 +7,11 @@ class Borrow extends React.Component{
 		this.state={}
 	}
 
-	render(){
+	render() {
+		const { data } = this.props;
+
 		return(
-			<BasePage footer={true} navbar={true}>
+			<BasePage footer={true} navbar={true} data={data}>
 				Borrow
 			</BasePage>
 		);
