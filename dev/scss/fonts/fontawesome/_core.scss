@@ -13,3 +13,7 @@
 .#{$fa-css-prefix}-space::before {
 	margin-right: $gutter / 2;
 }
+
+.#{$fa-css-prefix}-left::before {
+	margin-right: $margin / 2;
+}
