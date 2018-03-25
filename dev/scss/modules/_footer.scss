@@ -7,6 +7,8 @@
 	font-size: 0.8rem;
 
 	.pw-copyright {
+		display: flex;
+		justify-content: space-between;
 		padding: $padding;
 		color: $white;
 		background: $primary-darker-color;
@@ -14,11 +16,23 @@
 
 	.pw-content {
 		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: $padding * 3;
+		padding-bottom: $padding * 6;
 	}
 
-	.pw-section {
-
+	.pw-list {
+		display: grid;
+		grid-auto-flow: column;
+		grid-gap: $gutter * 2;
+		justify-content: center;
+		list-style: none;
+		padding: 0;
+		margin: 0;
 	}
 
-
+	.pw-separator {
+		margin: 0 $margin;
+	}
 }

@@ -1,0 +1,10 @@
+.pw-navbar {
+	display: flex;
+	justify-content: space-between;
+	background: $gray-E;
+
+	.pw-navbar-section {
+		background: $gray-D;
+		padding: $padding;
+	}
+}

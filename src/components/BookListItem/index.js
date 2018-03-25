@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '../'
+import { Link } from 'react-router-dom';
 
 class BookListItem extends React.Component{
 	constructor(props){
@@ -51,18 +52,17 @@ class BookListItem extends React.Component{
 	};
 
 	render(){
-        const { titulo , autor , showButtons } = this.state;
+        const { id, titulo , autor , showButtons } = this.state;
         const { handleClick, handleUpdate , handleDelete } = this;
 		return(
-            <article className="item" onClick={this.handleClick}>
+            <Link to={`/book/${id}`} className="item" onClick={handleClick}>
                 <section className="item-info">
                     <h4 className="item-title">{titulo}</h4>
                     <h6 className="item-autor">{autor}</h6>
                 </section>
-                { showButtons && <Button onClick={handleClick} className="item-button wh-button success shadow pwi pwi-eercast" /> }
                 { showButtons && <Button onClick={handleUpdate} className="item-button wh-button active shadow pwi pwi-refresh" /> }
                 { showButtons && <Button onClick={handleDelete} className="item-button wh-button alert shadow pwi pwi-times"/> }
-            </article>
+            </Link>
         );
 	}
 }
