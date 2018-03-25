@@ -2,5 +2,6 @@
   "app_name": "Biblioteca",
   "copyright": "Biblioteca | Copyright © 2018 - Todos los derechos reservados a sus respectivos dueños",
   "host": "https://localhost:80",
-  "getbooks": "/books"
+  "getbooks": "/books",
+  "getbook": "/book"
 }

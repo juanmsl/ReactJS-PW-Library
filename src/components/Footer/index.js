@@ -18,9 +18,9 @@ class Footer extends React.Component {
 				<section className="pw-copyright">
 					<span>{copyright}</span>
 					<section>
-						<a href="https://github.com/juanmsl/pw-library-front" className="pwi pwi-left pwi-github">Frontend</a>
+						<a target="_blank" rel="noopener noreferrer" href="https://github.com/juanmsl/pw-library-front" className="pwi pwi-left pwi-github">Frontend</a>
 						<span className="pw-separator">|</span>
-						<a href="https://github.com/juanmsl/pw-library-api" className="pwi pwi-left pwi-github">Backend</a>
+						<a target="_blank" rel="noopener noreferrer" href="https://github.com/juanmsl/pw-library-api" className="pwi pwi-left pwi-github">Backend</a>
 					</section>
 				</section>
 			</footer>

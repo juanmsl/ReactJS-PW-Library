@@ -39,6 +39,13 @@ class App extends React.Component{
 		return <Register {...this.state} />;
 	};
 
+	logout = () => {
+		this.setState({
+			user: null
+		});
+		return null;
+	};
+
 	renderRoutes = () => {
 		const { user } = this.state;
 
@@ -47,6 +54,7 @@ class App extends React.Component{
 				<Switch>
 					<Route exact path={"/"} render={this.renderRoot} />
 					<Route exact path={"/login"} render={this.renderLogin} />
+					<Route exact path={"/book/:id"} render={this.renderBookId} />
 					<Route render={ () => {return <Redirect to={'/'}/>} }/>
 				</Switch>
 			)
@@ -56,6 +64,7 @@ class App extends React.Component{
 					<Route exact path={"/home"} render={this.renderHome} />
 					<Route exact path={"/book/:id"} render={this.renderBookId} />
 					<Route exact path={"/borrow"} render={this.renderBorrow} />
+					<Route exact path={"/logout"} render={this.logout} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)
@@ -65,8 +74,8 @@ class App extends React.Component{
 					<Route exact path={"/home"} render={this.renderHome} />
 					<Route exact path={"/book/:id"} render={this.renderBookId} />
 					<Route exact path={"/book"} render={this.renderBook} />
-					<Route exact path={"/borrow"} render={this.renderBorrow} />
 					<Route exact path={"/register"} render={this.renderRegister} />
+					<Route exact path={"/logout"} render={this.logout} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)
