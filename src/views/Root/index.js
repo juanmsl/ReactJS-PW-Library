@@ -52,18 +52,18 @@ class Root extends React.Component{
 	};
 
 	render(){
-		const { data } = this.props;
+		const { data, user } = this.props;
 		const { books } = this.state;
 		const { app_name } = data;
 
 		return(
-            <BasePage footer={true} navbar={false} data={data} >
+            <BasePage footer={true} navbar={false} data={data} user={user}>
                 <header className="pw-header">
                     <h1 className="wh-title double-line">{app_name}</h1>
                 </header>
                 <main className="maincontent">
-                    <SearchBar />
-                    <BookList books={books} showButtons={true}/>
+                    <SearchBar showAddButton={false} />
+                    <BookList books={books} showButtons={false}/>
                 </main>
             </BasePage>
         );

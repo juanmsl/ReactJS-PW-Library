@@ -59,6 +59,9 @@ class Form extends React.Component{
 
 	transformChildren = () =>{
 		return React.Children.map(this.props.children,(child) => {
+			if(child === null) {
+				return undefined;
+			}
 			if( child.type === Field ){
 				return React.cloneElement(child,{
 					transform: this.transform

@@ -51,6 +51,12 @@
 		flex-direction: row;
 		align-items: center;
 
+		.pw-button {
+			margin-right: $margin;
+			padding: $padding / 2 $padding;
+			border-radius: 0;
+		}
+
 		.pw-field {
 			padding: $padding 0;
 		}

@@ -8,10 +8,10 @@ class Register extends React.Component{
 	}
 
 	render() {
-		const { data } = this.props;
+		const { data, user } = this.props;
 
 		return(
-			<BasePage footer={true} navbar={true} data={data}>
+			<BasePage footer={true} navbar={true} data={data} user={user}>
 				Register
 			</BasePage>
 		);
