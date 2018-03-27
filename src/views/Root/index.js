@@ -21,14 +21,17 @@ class Root extends React.Component{
 		const { host, getbooks } = data;
 
 		let url = path.join(host, getbooks);
+		console.log(url);
 
 		$.ajax({
 			type: "GET",
 			url: url,
 			success: function(response) {
-				this.setState({
-					books: response
-				});
+				if(typeof(response) === "object") {
+					this.setState({
+						books: response
+					});
+				}
 			}.bind(this),
 			error: function(response) { // while the backend is ready, after that, the error function will be removed
 				this.setState({
@@ -55,9 +58,10 @@ class Root extends React.Component{
 		const { data, user } = this.props;
 		const { books } = this.state;
 		const { app_name } = data;
+		console.log(books);
 
 		return(
-            <BasePage footer={true} navbar={false} data={data} user={user}>
+            <BasePage footer={true} navbar={true} data={data} user={user}>
                 <header className="pw-header">
                     <h1 className="wh-title double-line">{app_name}</h1>
                 </header>

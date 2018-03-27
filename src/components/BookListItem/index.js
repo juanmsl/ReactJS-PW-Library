@@ -5,18 +5,7 @@ import { Link } from 'react-router-dom';
 class BookListItem extends React.Component{
 	constructor(props){
 		super(props);
-        const { info , showButtons=false } = this.props;
-        const { id , isbn , titulo , autor } = info;
-        if( !id ){
-            console.warn("No id supplied in info to BookListItem.");
-        }
-		this.state={
-            autor: autor,
-            id: id,
-            isbn: isbn,
-            titulo: titulo,
-            showButtons: showButtons
-        }
+		this.state = {};
 	}
 
     handleUpdate=(e, obj)=>{
@@ -52,13 +41,14 @@ class BookListItem extends React.Component{
 	};
 
 	render(){
-        const { id, titulo , autor , showButtons } = this.state;
+        const { info , showButtons } = this.props;
+        const { id, nombre , isbn } = info;
         const { handleClick, handleUpdate , handleDelete } = this;
 		return(
             <Link to={`/book/${id}`} className="item" onClick={handleClick}>
                 <section className="item-info">
-                    <h4 className="item-title">{titulo}</h4>
-                    <h6 className="item-autor">{autor}</h6>
+                    <h4 className="item-title">{nombre}</h4>
+                    <h6 className="item-autor">{isbn}</h6>
                 </section>
                 { showButtons && <Button onClick={handleUpdate} className="item-button wh-button active shadow pwi pwi-refresh" /> }
                 { showButtons && <Button onClick={handleDelete} className="item-button wh-button alert shadow pwi pwi-times"/> }

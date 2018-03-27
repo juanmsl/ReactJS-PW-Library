@@ -6,7 +6,13 @@ import path from 'path';
 class BookID extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {}
+		console.log(props);
+		this.state = {
+			id: "",
+			titulo: "",
+			autores: [],
+			isbn: ""
+		}
 	}
 
 	componentDidMount() {
@@ -25,29 +31,76 @@ class BookID extends React.Component {
 			url: url,
 			success: function(response) {
 				this.setState({
-					books: response
+					response
 				});
 			}.bind(this),
 			error: function(response) { // while the backend is ready, after that, the error function will be removed
 				this.setState({
 					id: 1,
 					titulo: "Moby Dick",
-					autor: "Herman Melville",
+					autores: [{nombre:"Herman Melville"}],
 					isbn: "9781974305032"
 				});
 			}.bind(this)
 		});
 	};
 
+	renderAutores = () =>{
+		const { autores } = this.state;
+		return autores.map((autor,key) => {
+			return <li key={key}>{autor.nombre}</li>
+		})
+	}
+
+	renderHistory = () => {
+		return <div>Placeholder</div>
+	}
+
+	handleEdit = () =>{
+		console.log("Placeholder for edit. Please implement.");
+	}
+
+	handleDelete = () =>{
+		console.log("Placeholder for delete. Please implement.");
+	}
+
+	handleBorrow = () =>{
+		console.log("Placeholder for borrow. Please implement.");
+	}
+
 	render(){
+		const { renderAutores, renderHistory, handleEdit, handleDelete, handleBorrow } = this;
 		const { data, user } = this.props;
-		const { titulo, isbn, autor } = this.state;
+		const { titulo, isbn } = this.state;
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<h1>{titulo}</h1>
-				<p>{isbn}</p>
-				<p>{autor}</p>
+				<article>
+					<header>
+						<h1>{titulo}</h1>
+					</header>
+					<main>
+						<p>{`ISBN: ${isbn}`}</p>
+						<h3>Autores:</h3>
+						<ul>
+							{renderAutores()}
+						</ul>
+					</main>
+					<aside>
+						{renderHistory()}
+					</aside>
+					{ user.type === "prestamista" &&
+						<div>
+							<button onClick={handleBorrow}>Prestar</button>
+						</div>
+					}
+					{ user.type === "admin" &&
+						<div>
+							<button onClick={handleEdit}>Editar</button>
+							<button onClick={handleDelete}>Borrar</button>
+						</div>
+					}
+				</article>
 			</BasePage>
 		);
 	}
