@@ -27,7 +27,7 @@ class Login extends React.Component{
 						<Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required={true}/>
 						<Label id="password-label" htmlFor="password-input" name="password" className="pw-label pwi pwi-key"/>
 					</Field>
-					<Button id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
+					<Button submit id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
 				</Form>
 			</section>
 		);

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Input } from '../../components'
+import { Button , Input , ComboBox } from '../../components'
 import { Field } from '../'
 
 class Form extends React.Component{
@@ -52,6 +52,10 @@ class Form extends React.Component{
 			}else{
 				return child
 			}
+		}else if( child.type === ComboBox ){
+			return React.cloneElement(child,{
+				onChange: this.handleInputChange
+			})
 		}else{
 			return child
 		}
