@@ -2,6 +2,8 @@
 	display: flex;
 	justify-content: space-between;
 	background: $gray-E;
+	position: sticky;
+	top: 0;
 
 	.pw-navbar-section {
 		background: $gray-D;

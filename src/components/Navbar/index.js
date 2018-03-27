@@ -11,7 +11,12 @@ class Navbar extends React.Component {
 				<Link to="/" className="pw-navbar-section">
 					{app_name}{user !== null ? ` | ${user.type}` : ""}
 				</Link>
-				<Link to="/logout" className="pw-navbar-section pwi pwi-sign-out" />
+				{
+					user === null ?
+					<Link to="/login" className="pw-navbar-section pwi pwi-sign-in" />
+						:
+					<Link to="/logout" className="pw-navbar-section pwi pwi-sign-out" />
+				}
 			</nav>
 		);
 	}
