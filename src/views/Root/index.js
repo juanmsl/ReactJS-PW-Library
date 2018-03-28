@@ -12,7 +12,7 @@ class Root extends React.Component{
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.getBooks();
 	}
 
@@ -58,7 +58,6 @@ class Root extends React.Component{
 		const { data, user } = this.props;
 		const { books } = this.state;
 		const { app_name } = data;
-		console.log(books);
 
 		return(
             <BasePage footer={true} navbar={true} data={data} user={user}>
