@@ -14,6 +14,7 @@ export class RESTResolver {
 		$.ajax({
 			dataType: "json",
 			type: "GET",
+			timeout: 2000,
 			url: this.bookspath,
 			success: success,
 			error: error
@@ -24,6 +25,7 @@ export class RESTResolver {
 		$.ajax({
 			dataType: "json",
 			type: "GET",
+			timeout: 2000,
 			url: path.join(this.bookpath, id),
 			success: success,
 			error: error
