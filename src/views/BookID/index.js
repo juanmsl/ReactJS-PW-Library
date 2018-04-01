@@ -33,7 +33,7 @@ class BookID extends React.Component {
 	renderAutores = () =>{
 		const { autores } = this.state;
 		return autores.map((autor,key) => {
-			return <li key={key}>{autor.nombre}</li>
+			return <li className="pw-book-author" key={key}>{autor.nombre}</li>
 		})
 	};
 
@@ -56,36 +56,37 @@ class BookID extends React.Component {
 	render(){
 		const { renderAutores, renderHistory, handleEdit, handleDelete, handleBorrow } = this;
 		const { data, user } = this.props;
-		const { titulo, isbn, gettingBook } = this.state;
+		const { nombre, isbn, gettingBook } = this.state;
 		let userType = user? user.type : "";
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<LoadSection loading={gettingBook === "pending"} error={gettingBook === "error"}>
-					<article>
-						<header>
-							<h1>{titulo}</h1>
-						</header>
-						<main>
-							<p>{`ISBN: ${isbn}`}</p>
-							<h3>Autores:</h3>
-							<ul>
-								{renderAutores()}
-							</ul>
-						</main>
-						<aside>
-							{renderHistory()}
-						</aside>
-						{ userType === "prestamista" &&
-							<div>
-								<button onClick={handleBorrow}>Prestar</button>
-							</div>
-						}
-						{ userType === "admin" &&
-							<div>
-								<button onClick={handleEdit}>Editar</button>
-								<button onClick={handleDelete}>Borrar</button>
-							</div>
-						}
+					<article className="book">
+						<h1 className="wh-title">{nombre}</h1>
+						<section className="pw-book-content">
+							<section className="pw-book-info">
+								<ul className="pw-book-authors">
+									{renderAutores()}
+								</ul>
+								<p className="pw-book-isbn">ISBN <span>{isbn}</span></p>
+							</section>
+							<aside>
+								{renderHistory()}
+							</aside>
+						</section>
+						<section className="pw-book-buttons">
+							{ userType === "prestamista" &&
+								<React.Fragment>
+									<button className="wh-button shadow active" onClick={handleBorrow}>Prestar</button>
+								</React.Fragment>
+							}
+							{ userType === "admin" &&
+								<React.Fragment>
+									<button className="wh-button shadow active" onClick={handleEdit}>Editar</button>
+									<button className="wh-button shadow alert" onClick={handleDelete}>Borrar</button>
+								</React.Fragment>
+							}
+						</section>
 					</article>
 				</LoadSection>
 			</BasePage>

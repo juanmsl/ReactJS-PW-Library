@@ -18,7 +18,7 @@ export class RESTResolver {
 			success: success,
 			error: error
 		});
-	}
+	};
 
 	getBook = (id, success, error) => {
 		$.ajax({
@@ -28,5 +28,5 @@ export class RESTResolver {
 			success: success,
 			error: error
 		});
-	}
+	};
 }
