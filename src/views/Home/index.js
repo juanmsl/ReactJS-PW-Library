@@ -11,6 +11,7 @@ class Home extends React.Component{
 		super(props);
 		this.state = {
 			books: [],
+			filteredBooks: [],
 			gettingBooks: 'pending',
 			shouldRedirect: false,
 			to: null
@@ -22,6 +23,7 @@ class Home extends React.Component{
 		this.restResolver.getBooks((response) => {
 			this.setState({
 				books: response,
+				filteredBooks: response,
 				gettingBooks: 'success'
 			});
 		}, (response) => {
@@ -39,11 +41,23 @@ class Home extends React.Component{
 		})
 	}
 
+	handleFilter = (obj) => {
+		this.setState({
+			...this.state,
+			filteredBooks: this.state.books.filter((book) => {
+				const { nombre } = book;
+				let name = nombre.toLowerCase();
+				let filter = obj.input.toLowerCase();
+				return (name.includes(filter) )
+			})
+		})
+	}
+
 	render() {
 		const { data, user } = this.props;
-		const { books, gettingBooks, shouldRedirect, to } = this.state;
+		const { filteredBooks, gettingBooks, shouldRedirect, to } = this.state;
 		const { type } = user;
-		const { handleBookClick } = this;
+		const { handleBookClick , handleFilter } = this;
 
 		if( shouldRedirect ){
 			return <Redirect push to={`book/${to}`}/>
@@ -56,9 +70,9 @@ class Home extends React.Component{
 						{ type === "admin" && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
 						{ type === "prestamista" && <Link to="/borrow" className="pw-button wh-button active shadow">Relizar un prestamo</Link> }
 					</section>
-					<SearchBar typeUser={type} />
+					<SearchBar typeUser={type} onChange={handleFilter} />
 					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
-						<BookList onBookClick={handleBookClick} books={books} showButtons={type === "admin"}/>
+						<BookList onBookClick={handleBookClick} books={filteredBooks} showButtons={type === "admin"}/>
 					</LoadSection>
 				</main>
 			</BasePage>

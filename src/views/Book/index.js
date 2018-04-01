@@ -125,6 +125,9 @@ class Book extends React.Component{
 		const { available , selected , newAuthors } = this.state;
 
 		const selectedAuths = newAuthors.length > 0 ? selected.concat(newAuthors) : selected;
+		const emptyAuthors  = "-- No hay autores que mostrar --";
+		const emptySelected = "-- No hay autores seleccionados --";
+
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
@@ -139,9 +142,9 @@ class Book extends React.Component{
 							<Label id="isbn-label" htmlFor="isbn-input" className="pw-label pwi pwi-user"/>
 						</Field>
 						<Label>Autores</Label>
-						<List onClick={addAuthor} items={available}/>
+						<List onClick={addAuthor} items={available} emptyMessage={emptyAuthors}/>
 						<Label>Selected</Label>
-						<List onClick={removeAuthor} items={selectedAuths}/>
+						<List onClick={removeAuthor} items={selectedAuths} emptyMessage={emptySelected}/>
 						<Form onSubmit={handleNewAuthor}>
 							<Field>
 								<Input name="newAuthor"/>

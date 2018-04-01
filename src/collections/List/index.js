@@ -23,7 +23,12 @@ class List extends React.Component{
 
 	renderItems = () =>{
 		const { handleItemClick } = this;
-		return this.state.items.map((item,index) => {
+		const { items } = this.state;
+		if( items.length === 0 ){
+			const { emptyMessage="-- No hay Items que mostrar --" } = this.props;
+			return <ListItem value={emptyMessage} />
+		}
+		return items.map((item,index) => {
 			return (
 				<ListItem
 					key={index}
@@ -35,11 +40,9 @@ class List extends React.Component{
 	}
 
 	render(){
-		const { items=[] , ordered=false } = this.props;
+		const { ordered=false } = this.props;
 		const { renderItems } = this;
-		if( items.length === 0 ){
-			return <div></div>
-		}
+
 		if( ordered ){
 			return <ol>
 				{renderItems()}

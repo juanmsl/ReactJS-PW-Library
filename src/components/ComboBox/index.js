@@ -3,7 +3,10 @@ import React from 'react'
 class ComboBox extends React.Component{
 	constructor(props){
 		super(props);
-		const { options } = props
+		let { options } = props
+		if( options.length === 0 ){
+			options=[{value:null}]
+		}
 		this.state={
 			value: options[0].value
 		}
@@ -18,7 +21,10 @@ class ComboBox extends React.Component{
 	}
 
 	renderOptions = () =>{
-		const { options } = this.props;
+		const { options , emptyMessage="-- No hay nada que mostrar --"} = this.props;
+		if( options.length === 0){
+			return <option value={null}>{emptyMessage}</option>
+		}
 		return options.map((op,key) => {
 			return <option key={key} value={op.value}>{op.label}</option>
 		})

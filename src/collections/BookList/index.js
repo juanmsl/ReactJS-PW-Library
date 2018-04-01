@@ -49,6 +49,14 @@ class BookList extends React.Component{
         const { showButtons } = this.props;
 		const { books } = this.state;
         const { handleDelete , handleUpdate , handleBookClick } = this;
+		if( books.length === 0 ){
+			const { emptyInfo={
+				nombre: "-- No hay libros que mostrar --",
+				autores: [],
+				isbn: ""
+			} } = this.props;
+			return <BookListItem info={emptyInfo} />
+		}
         return books.map((book, index) => {
             return <BookListItem
                 onDelete={handleDelete}
