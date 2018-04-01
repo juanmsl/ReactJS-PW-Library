@@ -9,6 +9,12 @@ class BookListItem extends React.Component{
 		};
 	}
 
+	componentWillReceiveProps = (nextProps) =>{
+		this.setState({
+			info: {...nextProps.info}
+		})
+	}
+
     handleUpdate=(e, obj)=>{
         if( this.props.onUpdate ){
             this.props.onUpdate(e,{

@@ -9,6 +9,12 @@ class BookList extends React.Component{
 		};
 	}
 
+	componentWillReceiveProps = (nextProps) =>{
+		this.setState({
+			books: nextProps.books
+		})
+	}
+
     handleDelete = (e,obj) =>{
         //For debugging only
         console.log({
