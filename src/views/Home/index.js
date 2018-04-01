@@ -50,7 +50,7 @@ class Home extends React.Component{
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent">
-					<SearchBar showAddButton={type === "admin"} />
+					<SearchBar typeUser={type} />
 					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
 						<BookList onBookClick={handleBookClick} books={books} showButtons={type === "admin"}/>
 					</LoadSection>

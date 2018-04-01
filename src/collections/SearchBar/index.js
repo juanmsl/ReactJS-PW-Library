@@ -13,17 +13,18 @@ class SearchBar extends React.Component{
 		if( this.props.onChange ){
 			this.props.onChange(e,obj);
 		}
-	}
+	};
 
 	render(){
-		const { showAddButton=false } = this.props;
+		const { typeUser="prestamista" } = this.props;
 		const { handleChange } = this;
 
 		return(
 			<Form onChange={handleChange} id="search-form" className="pw-form" autocomplete="off">
 				<section className="pw-field">
-					{ showAddButton && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
-					{ showAddButton && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
+					{ typeUser === "admin" && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
+					{ typeUser === "admin" && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
+					{ typeUser === "prestamista" && <Link to="/borrow" className="pw-button wh-button active shadow">Relizar un prestamo</Link> }
 				</section>
 				<Field>
 					<Input id="input" name="input" placeholder="Titulo del libro" className="pw-input" required={true}/>
