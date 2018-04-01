@@ -35,20 +35,20 @@ class List extends React.Component{
 	}
 
 	render(){
-		const { ordered=false } = this.props;
+		const { items=[] , ordered=false } = this.props;
 		const { renderItems } = this;
-
-		return(
-			if( ordered ){
-				<ol>
-					{renderItems()}
-				</ol>
-			}else{
-				<ul>
-					{renderItems()}
-				</ul>
-			}
-		);
+		if( items.length === 0 ){
+			return <div></div>
+		}
+		if( ordered ){
+			return <ol>
+				{renderItems()}
+			</ol>
+		}else{
+			return <ul>
+				{renderItems()}
+			</ul>
+		}
 	}
 }
 
