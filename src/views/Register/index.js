@@ -9,7 +9,8 @@ class Register extends React.Component{
 		this.state={}
 	}
 
-	handleSubmit = () =>{
+	handleSubmit = (e,state) =>{
+		console.log(state);
 		console.log("Please implement add new user request");
 	}
 
@@ -35,7 +36,7 @@ class Register extends React.Component{
 							<Label id="password-label" htmlFor="password-input" className="pw-label pwi pwi-key"/>
 						</Field>
 						<Field>
-							<ComboBox id="type-input"name="type" options={ops} className="pw-input" required={true}/>
+							<ComboBox id="type-input" name="type" options={ops} className="pw-input" required={true}/>
 							<Label id="type-label" htmlFor="type-input" name="password" className="pw-label pwi pwi-users"/>
 						</Field>
 						<Button submit className="pw-submit wh-button active shadow">Registrar</Button>
