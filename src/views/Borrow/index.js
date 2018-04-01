@@ -23,7 +23,9 @@ class Borrow extends React.Component{
 		this.restResolver.getBooks((response) => {
 			this.setState({
 				books: response,
-				filteredBooks: response,
+				filteredBooks: response.filter((book) => {
+					return book.disponible;
+				}),
 				gettingBooks: 'success'
 			});
 		}, (response) => {
