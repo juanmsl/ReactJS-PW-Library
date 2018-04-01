@@ -39,11 +39,11 @@ class ComboBox extends React.Component{
 	}
 
 	render(){
-		const { name } = this.props;
+		const { id, name, className, required } = this.props;
 		const { renderOptions } = this;
 
 		return(
-			<select name={name} onChange={this.handleChange}>
+			<select id={id} name={name} onChange={this.handleChange} className={className} required={required}>
 				{renderOptions()}
 			</select>
 		);
