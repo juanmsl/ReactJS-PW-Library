@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter , Redirect , Route , Switch } from 'react-router-dom'
-import { Book , BookID , Borrow , Home , Login , Register , Root } from './views'
+import { Book , BookID , Borrow , Home , Login , Register , Return , Root } from './views'
 
 class App extends React.Component{
 	constructor(props){
@@ -39,6 +39,10 @@ class App extends React.Component{
 		return <Register {...this.state} />;
 	};
 
+	renderReturn = () =>{
+		return <Return {...this.state} />;
+	}
+
 	logout = () => {
 		this.setState({
 			user: null
@@ -64,6 +68,7 @@ class App extends React.Component{
 					<Route exact path={"/home"} render={this.renderHome} />
 					<Route exact path={"/book/:id"} render={this.renderBookId} />
 					<Route exact path={"/borrow"} render={this.renderBorrow} />
+					<Route exact path={"/return"} render={this.renderReturn} />
 					<Route exact path={"/logout"} render={this.logout} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
