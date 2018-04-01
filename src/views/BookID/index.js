@@ -48,12 +48,8 @@ class BookID extends React.Component {
 		console.log("Placeholder for delete. Please implement.");
 	};
 
-	handleBorrow = () =>{
-		console.log("Placeholder for borrow. Please implement.");
-	};
-
 	render(){
-		const { renderAutores, renderHistory, handleEdit, handleDelete, handleBorrow } = this;
+		const { renderAutores, renderHistory, handleEdit, handleDelete } = this;
 		const { data, user } = this.props;
 		const { nombre, isbn, gettingBook } = this.state;
 		let userType = user? user.type : "";
@@ -74,11 +70,6 @@ class BookID extends React.Component {
 							</aside>
 						</section>
 						<section className="pw-book-buttons">
-							{ userType === "prestamista" &&
-								<React.Fragment>
-									<button className="wh-button shadow active" onClick={handleBorrow}>Prestar</button>
-								</React.Fragment>
-							}
 							{ userType === "admin" &&
 								<React.Fragment>
 									<button className="wh-button shadow active" onClick={handleEdit}>Editar</button>

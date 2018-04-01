@@ -4,6 +4,7 @@ import { SearchBar } from "../../collections";
 import { Button , Input , Label , LoadSection } from '../../components';
 import { BookList , Form } from '../../collections';
 import { RESTResolver } from "../../resources/RESTResolver";
+import { Field } from "../../collections";
 
 class Borrow extends React.Component{
 	constructor(props){
@@ -14,7 +15,7 @@ class Borrow extends React.Component{
 			books: [],
 			filteredBooks: [],
 			gettingBooks: 'pending'
-		}
+		};
 		this.restResolver = new RESTResolver();
 	}
 
@@ -30,7 +31,7 @@ class Borrow extends React.Component{
 				gettingBooks: 'error'
 			});
 		});
-	}
+	};
 
 	addToBorrowList = (e,obj) =>{
 		const { borrowIDs , books } = this.state;
@@ -39,7 +40,7 @@ class Borrow extends React.Component{
 			newList.push(obj.id);
 		const newBorrowList = newList.map((id) => {
 			return books.find((book) =>{ return book.id === id });
-		})
+		});
 		this.setState({
 			borrowIDs: newList,
 			borrowList: newBorrowList,
@@ -49,7 +50,7 @@ class Borrow extends React.Component{
 				return ( !borrowIDs.includes(id) && disponible)
 			})
 		})
-	}
+	};
 
 	removeFromBorrowList = (e,obj) =>{
 		const { id } = obj;
@@ -58,7 +59,7 @@ class Borrow extends React.Component{
 		newBorrowIds.splice(borrowIDs.indexOf(id),1);
 		const newBorrowList = newBorrowIds.map((id) => {
 			return books.find((book) =>{ return book.id === id });
-		})
+		});
 		this.setState({
 			borrowIDs: newBorrowIds,
 			borrowList: newBorrowList,
@@ -68,11 +69,11 @@ class Borrow extends React.Component{
 				return ( !borrowIDs.includes(id) && disponible)
 			})
 		})
-	}
+	};
 
 	handleBorrow = () =>{
 		console.log("Please implement handleBorrow");
-	}
+	};
 
 	handleFilter = (obj) =>{
 		this.setState({
@@ -85,7 +86,7 @@ class Borrow extends React.Component{
 				return (name.includes(filter) && !borrowIDs.includes(id) && disponible)
 			})
 		})
-	}
+	};
 
 	render() {
 		const { data, user } = this.props;
@@ -98,18 +99,30 @@ class Borrow extends React.Component{
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<SearchBar onChange={handleFilter}/>
-				<aside>
-					<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
-				</aside>
-				<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
-					<BookList books={filteredBooks} onBookClick={addToBorrowList}/>
-				</LoadSection>
-				<Form onSubmit={handleBorrow}>
-					<Input name="documento" required={true}/>
-					<Label htmlFor="documento">ID</Label>
-					<Button submit>Prestar</Button>
-				</Form>
+				<main className="maincontent pw-borrow">
+					<section className="pw-borrow-content">
+						<section className="pw-borrow-section">
+							<h1 className="underline">Libros a prestar</h1>
+							<Form className="pw-form" autocomplete="off">
+								<Field className="pw-field">
+									<Input id="document-input" name="documento" placeholder="Documento del solicitante" className="pw-input" required={true}/>
+									<Label id="document-label" htmlFor="document-input" className="pw-label pwi pwi-user" />
+								</Field>
+							</Form>
+							<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
+						</section>
+						<section>
+							<h1 className="underline">Libros disponibles</h1>
+							<SearchBar onChange={handleFilter}/>
+							<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
+								<BookList books={filteredBooks} onBookClick={addToBorrowList}/>
+							</LoadSection>
+						</section>
+					</section>
+					<section className="pw-borrow-footer">
+						<Button submit onClick={handleBorrow}  className="pw-button wh-button active shadow">Realizar prestamo</Button>
+					</section>
+				</main>
 			</BasePage>
 		);
 	}

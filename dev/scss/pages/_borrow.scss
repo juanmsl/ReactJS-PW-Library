@@ -1,0 +1,25 @@
+.pw-borrow {
+	display: flex;
+	flex-direction: column;
+
+	.pw-borrow-content {
+		flex-grow: 1;
+		display: grid;
+		grid-auto-flow: column;
+		grid-gap: $gutter;
+		grid-auto-columns: 1fr;
+		align-content: stretch;
+		align-items: stretch;
+	}
+
+	.pw-section {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.pw-borrow-footer {
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: right;
+	}
+}
