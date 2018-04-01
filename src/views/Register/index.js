@@ -39,7 +39,7 @@ class Register extends React.Component{
 							<ComboBox id="type-input" name="type" options={ops} className="pw-input" required={true}/>
 							<Label id="type-label" htmlFor="type-input" name="password" className="pw-label pwi pwi-users"/>
 						</Field>
-						<Button submit className="pw-submit wh-button active shadow">Registrar</Button>
+						<Button submit className="pw-submit wh-button active shadow">Agregar usuario</Button>
 					</Form>
 				</section>
 			</BasePage>

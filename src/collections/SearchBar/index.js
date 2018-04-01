@@ -20,9 +20,11 @@ class SearchBar extends React.Component{
 		const { handleChange } = this;
 
 		return(
-			<Form onChange={handleChange} id="search-form" className="pw-form inline" autocomplete="off">
-				{ showAddButton && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
-				{ showAddButton && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
+			<Form onChange={handleChange} id="search-form" className="pw-form" autocomplete="off">
+				<section className="pw-field">
+					{ showAddButton && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
+					{ showAddButton && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
+				</section>
 				<Field>
 					<Input id="input" name="input" placeholder="Titulo del libro" className="pw-input" required={true}/>
 					<Label id="input-label" htmlFor="input" name="username" className="pw-label pwi pwi-search"/>
