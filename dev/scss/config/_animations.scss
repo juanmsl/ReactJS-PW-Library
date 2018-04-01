@@ -8,3 +8,9 @@
 		opacity: 1;
 	}
 }
+
+@keyframes rotate {
+	to {
+		transform: rotate(1turn);
+	}
+}

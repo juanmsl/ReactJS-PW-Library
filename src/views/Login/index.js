@@ -21,13 +21,13 @@ class Login extends React.Component{
 				<Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
 					<Field>
 						<Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required={true}/>
-						<Label id="username-label" htmlFor="username-input" name="username" className="pw-label pwi pwi-user"/>
+						<Label id="username-label" htmlFor="username-input" className="pw-label pwi pwi-user"/>
 					</Field>
 					<Field>
 						<Input id="password-input" name="password" type="password" placeholder="Contraseña" className="pw-input" required={true}/>
-						<Label id="password-label" htmlFor="password-input" name="password" className="pw-label pwi pwi-key"/>
+						<Label id="password-label" htmlFor="password-input" className="pw-label pwi pwi-key"/>
 					</Field>
-					<Button id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
+					<Button submit id="submit-button" className="pw-submit wh-button active shadow">Ingresar</Button>
 				</Form>
 			</section>
 		);

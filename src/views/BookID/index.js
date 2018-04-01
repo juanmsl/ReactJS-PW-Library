@@ -1,6 +1,6 @@
+import $ from "jquery";
 import React from 'react'
 import { BasePage } from "..";
-import $ from "jquery";
 import path from 'path';
 
 class BookID extends React.Component {
@@ -15,7 +15,7 @@ class BookID extends React.Component {
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.getBook();
 	}
 
@@ -72,7 +72,7 @@ class BookID extends React.Component {
 		const { renderAutores, renderHistory, handleEdit, handleDelete, handleBorrow } = this;
 		const { data, user } = this.props;
 		const { titulo, isbn } = this.state;
-
+		let userType = user? user.type : "";
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<article>
@@ -89,12 +89,12 @@ class BookID extends React.Component {
 					<aside>
 						{renderHistory()}
 					</aside>
-					{ user.type === "prestamista" &&
+					{ userType === "prestamista" &&
 						<div>
 							<button onClick={handleBorrow}>Prestar</button>
 						</div>
 					}
-					{ user.type === "admin" &&
+					{ userType === "admin" &&
 						<div>
 							<button onClick={handleEdit}>Editar</button>
 							<button onClick={handleDelete}>Borrar</button>
