@@ -1,62 +1,35 @@
-import $ from 'jquery';
-import path from 'path';
 import React from 'react';
 import { BookList , SearchBar } from '../../collections';
 import { BasePage } from "..";
+import { LoadSection } from "../../components";
+import { RESTResolver } from "../../resources/RESTResolver";
 
 class Root extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			books: [] // This field will be rewrite by ajax, when calling the rest endpoint
-		}
+			books: [],
+			gettingBooks: 'pending'
+		};
+		this.restResolver = new RESTResolver();
 	}
 
-	componentWillMount() {
-		this.getBooks();
-	}
-
-	getBooks = () => {
-		const { data } = this.props;
-		const { host, getbooks } = data;
-
-		let url = path.join(host, getbooks);
-		console.log(url);
-
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(response) {
-				if(typeof(response) === "object") {
-					this.setState({
-						books: response
-					});
-				}
-			}.bind(this),
-			error: function(response) { // while the backend is ready, after that, the error function will be removed
-				this.setState({
-					books: [
-						{
-							id: 1,
-							titulo: "Moby Dick",
-							autor: "Herman Melville",
-							isbn: "9781974305032"
-						},
-						{
-							id: 2,
-							titulo: "El Principito",
-							autor: "Antoine de Saint-Exupery",
-							isbn: "9788995317471"
-						}
-					]
-				});
-			}.bind(this)
+	componentDidMount() {
+		this.restResolver.getBooks((response) => {
+			this.setState({
+				books: response,
+				gettingBooks: 'success'
+			});
+		}, (response) => {
+			this.setState({
+				gettingBooks: 'error'
+			});
 		});
-	};
+	}
 
 	render(){
 		const { data, user } = this.props;
-		const { books } = this.state;
+		const { books, gettingBooks } = this.state;
 		const { app_name } = data;
 
 		return(
@@ -66,7 +39,9 @@ class Root extends React.Component{
                 </header>
                 <main className="maincontent">
                     <SearchBar showAddButton={false} />
-                    <BookList books={books} showButtons={false}/>
+					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
+						<BookList books={books} showButtons={false}/>
+					</LoadSection>
                 </main>
             </BasePage>
         );
