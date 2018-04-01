@@ -43,13 +43,13 @@ class Borrow extends React.Component{
 		console.log("Please implement handleBorrow");
 	}
 
-	handleChange = (obj) =>{
+	handleFilter = (obj) =>{
 		this.setState({
 			...this.state,
 			filteredBooks: this.state.books.filter((book) => {
-				return book.nombre.toLowerCase().includes(obj.input)
+				return book.nombre.toLowerCase().includes(obj.input.toLowerCase())
 			})
-		},()=>{console.log(this.state);})
+		})
 	}
 
 	render() {
@@ -59,11 +59,11 @@ class Borrow extends React.Component{
 			handleBorrow ,
 			addToBorrowList ,
 			removeFromBorrowList ,
-			handleChange } = this;
+			handleFilter } = this;
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<SearchBar onChange={handleChange}/>
+				<SearchBar onChange={handleFilter}/>
 				<aside>
 					<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
 				</aside>
