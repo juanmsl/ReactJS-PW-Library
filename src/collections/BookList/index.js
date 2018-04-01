@@ -31,13 +31,26 @@ class BookList extends React.Component{
         }
     };
 
+	handleBookClick = (e,obj)=>{
+		//For debugging only
+        console.log({
+            operation:"click",
+            ...obj
+        });
+        //end of debug
+        if( this.props.onBookClick ){
+            this.props.onBookClick(e,obj)
+        }
+	}
+
     renderRows = () =>{
         const { showButtons, books } = this.props;
-        const { handleDelete , handleUpdate } = this;
+        const { handleDelete , handleUpdate , handleBookClick } = this;
         return books.map((book, index) => {
             return <BookListItem
                 onDelete={handleDelete}
                 onUpdate={handleUpdate}
+				onClick={handleBookClick}
                 key={index}
                 info={book}
                 showButtons={showButtons}/>

@@ -27,18 +27,21 @@ class Home extends React.Component{
 		});
 	}
 
+	handleBookClick = (e,obj) =>{
+		console.log(obj);
+	}
+
 	render() {
 		const { data, user } = this.props;
 		const { books, gettingBooks } = this.state;
-		const { type } = user;
-		console.log(books.length);
+		const { type , handleBookClick } = user;
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent">
 					<SearchBar showAddButton={type === "admin"} />
 					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
-						<BookList books={books} showButtons={type === "admin"}/>
+						<BookList onBookClick={handleBookClick} books={books} showButtons={type === "admin"}/>
 					</LoadSection>
 				</main>
 			</BasePage>

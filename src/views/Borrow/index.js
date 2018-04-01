@@ -1,5 +1,7 @@
 import React from 'react'
 import { BasePage } from "..";
+import { SearchBar } from "../../collections";
+import { Button } from '../../components';
 
 class Borrow extends React.Component{
 	constructor(props){
@@ -7,12 +9,18 @@ class Borrow extends React.Component{
 		this.state={}
 	}
 
+	handleBorrow = (booklist) =>{
+
+	}
+
 	render() {
 		const { data, user } = this.props;
+		const { handleBorrow } = this;
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				Borrow
+				<SearchBar />
+				<Button onClick={handleBorrow} />
 			</BasePage>
 		);
 	}
