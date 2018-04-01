@@ -1,15 +1,18 @@
 import React from 'react'
+import { BasePage } from "..";
 import { BookList , SearchBar } from '../../collections';
 import { LoadSection } from "../../components";
-import { BasePage } from "..";
 import { RESTResolver } from "../../resources/RESTResolver";
+import { Redirect } from 'react-router-dom';
 
 class Home extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
 			books: [],
-			gettingBooks: 'pending'
+			gettingBooks: 'pending',
+			shouldRedirect: false,
+			to: null
 		};
 		this.restResolver = new RESTResolver();
 	}
@@ -28,14 +31,21 @@ class Home extends React.Component{
 	}
 
 	handleBookClick = (e,obj) =>{
-		console.log(obj);
+		this.setState({
+			...this.state,
+			shouldRedirect: true,
+			to: obj.id
+		})
 	}
 
 	render() {
 		const { data, user } = this.props;
-		const { books, gettingBooks } = this.state;
+		const { books, gettingBooks, shouldRedirect, to } = this.state;
 		const { type , handleBookClick } = user;
 
+		if( shouldRedirect ){
+			return <Redirect push to={`book/${to}`}/>
+		}
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent">
