@@ -9,11 +9,18 @@ class SearchBar extends React.Component{
 		this.state={}
 	}
 
+	handleChange = (e,obj) => {
+		if( this.props.onChange ){
+			this.props.onChange(e,obj);
+		}
+	}
+
 	render(){
-		const { showAddButton } = this.props;
+		const { showAddButton=false } = this.props;
+		const { handleChange } = this;
 
 		return(
-			<Form id="search-form" className="pw-form inline" autocomplete="off">
+			<Form onChange={handleChange} id="search-form" className="pw-form inline" autocomplete="off">
 				{ showAddButton && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
 				{ showAddButton && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
 				<Field>
