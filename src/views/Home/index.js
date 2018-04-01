@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { BasePage } from "..";
 import { BookList , SearchBar } from '../../collections';
 import { LoadSection } from "../../components";
@@ -50,6 +51,11 @@ class Home extends React.Component{
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent">
+					<section className="pw-button-container">
+						{ type === "admin" && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
+						{ type === "admin" && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
+						{ type === "prestamista" && <Link to="/borrow" className="pw-button wh-button active shadow">Relizar un prestamo</Link> }
+					</section>
 					<SearchBar typeUser={type} />
 					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
 						<BookList onBookClick={handleBookClick} books={books} showButtons={type === "admin"}/>

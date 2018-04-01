@@ -1,12 +1,13 @@
 .pw-navbar {
 	display: flex;
 	justify-content: space-between;
-	background: $gray-E;
+	background: $primary-color;
 	position: sticky;
 	top: 0;
+	color: $white;
 
 	.pw-navbar-section {
-		background: $gray-D;
+		background: $primary-darker-color;
 		padding: $padding;
 	}
 }
