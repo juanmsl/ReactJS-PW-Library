@@ -39,15 +39,22 @@ class BookListItem extends React.Component{
 		}
 	};
 
+	renderAuthors = () => {
+		return this.state.info.autores.map((autor, i) => {
+			return <span className="item-author" key={i}>Hola</span>
+		});
+	};
+
 	render(){
         const { showButtons } = this.props;
-        const { nombre , isbn } = this.state.info;
-        const { handleClick, handleUpdate , handleDelete } = this;
+        const { nombre } = this.state.info;
+        const { handleClick, handleUpdate , handleDelete, renderAuthors } = this;
+
 		return(
             <section className="item" onClick={handleClick}>
                 <section className="item-info">
                     <h4 className="item-title">{nombre}</h4>
-                    <h6 className="item-autor">{isbn}</h6>
+                    <section className="item-authors">{renderAuthors()}</section>
                 </section>
                 { showButtons && <Button onClick={handleUpdate} className="item-button wh-button active shadow pwi pwi-refresh" /> }
                 { showButtons && <Button onClick={handleDelete} className="item-button wh-button alert shadow pwi pwi-times"/> }
