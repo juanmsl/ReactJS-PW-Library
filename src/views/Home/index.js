@@ -14,7 +14,7 @@ class Home extends React.Component{
 		this.restResolver = new RESTResolver();
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.restResolver.getBooks((response) => {
 			this.setState({
 				books: response,
