@@ -16,7 +16,7 @@ class Book extends React.Component{
 
 	render() {
 		const { data, user } = this.props;
-		const { handleSubmit , handleCancel } = this;
+		const { handleSubmit } = this;
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>

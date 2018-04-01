@@ -9,6 +9,7 @@ class Borrow extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
+			borrowIDs: [],
 			borrowList: [],
 			books: [],
 			filteredBooks: [],
@@ -31,12 +32,44 @@ class Borrow extends React.Component{
 		});
 	}
 
-	addToBorrowList = () =>{
-
+	addToBorrowList = (e,obj) =>{
+		const { borrowIDs , books } = this.state;
+		const newList = borrowIDs;
+		if( !newList.includes(obj.id) )
+			newList.push(obj.id);
+		const newBorrowList = newList.map((id) => {
+			return books.find((book) =>{ return book.id === id });
+		})
+		this.setState({
+			borrowIDs: newList,
+			borrowList: newBorrowList,
+			filteredBooks: this.state.books.filter((book) => {
+				const { id , disponible} = book;
+				const { borrowIDs } = this.state;
+				return ( !borrowIDs.includes(id) && disponible)
+			})
+		})
 	}
 
-	removeFromBorrowList = () =>{
-
+	removeFromBorrowList = (e,obj) =>{
+		const { id } = obj;
+		const { borrowIDs , books } = this.state;
+		console.log(borrowIDs);
+		const newBorrowIds = borrowIDs;
+		newBorrowIds.splice(borrowIDs.indexOf(id),1);
+		console.log(newBorrowIds);
+		const newBorrowList = newBorrowIds.map((id) => {
+			return books.find((book) =>{ return book.id === id });
+		})
+		this.setState({
+			borrowIDs: newBorrowIds,
+			borrowList: newBorrowList,
+			filteredBooks: this.state.books.filter((book) => {
+				const { id , disponible} = book;
+				const { borrowIDs } = this.state;
+				return ( !borrowIDs.includes(id) && disponible)
+			})
+		})
 	}
 
 	handleBorrow = () =>{
@@ -47,7 +80,11 @@ class Borrow extends React.Component{
 		this.setState({
 			...this.state,
 			filteredBooks: this.state.books.filter((book) => {
-				return book.nombre.toLowerCase().includes(obj.input.toLowerCase())
+				const { nombre , id , disponible } = book;
+				const { borrowIDs } = this.state;
+				let name = nombre.toLowerCase();
+				let filter = obj.input.toLowerCase();
+				return (name.includes(filter) && !borrowIDs.includes(id) && disponible)
 			})
 		})
 	}
