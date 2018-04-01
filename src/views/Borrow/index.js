@@ -9,8 +9,16 @@ class Borrow extends React.Component{
 		this.state={}
 	}
 
-	handleBorrow = (booklist) =>{
+	addToBorrowList = () =>{
 
+	}
+
+	removeFromBorrowList = () =>{
+
+	}
+
+	handleBorrow = () =>{
+		console.log("Please implemen");
 	}
 
 	render() {

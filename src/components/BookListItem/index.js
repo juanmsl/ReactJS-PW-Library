@@ -35,7 +35,7 @@ class BookListItem extends React.Component{
 
 	render(){
         const { showButtons } = this.props;
-        const { id, nombre , isbn } = this.state.info;
+        const { nombre , isbn } = this.state.info;
         const { handleClick, handleUpdate , handleDelete } = this;
 		return(
             <section className="item" onClick={handleClick}>

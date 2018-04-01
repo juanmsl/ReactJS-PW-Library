@@ -41,7 +41,8 @@ class Home extends React.Component{
 	render() {
 		const { data, user } = this.props;
 		const { books, gettingBooks, shouldRedirect, to } = this.state;
-		const { type , handleBookClick } = user;
+		const { type } = user;
+		const { handleBookClick } = this;
 
 		if( shouldRedirect ){
 			return <Redirect push to={`book/${to}`}/>
