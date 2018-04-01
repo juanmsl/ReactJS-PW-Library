@@ -42,6 +42,8 @@
 
     .pw-submit {
         -webkit-appearance: none;
+        -moz-appearance: none;
+        -op-appearance: none;
         background: $white;
         margin-top: $margin;
         padding: $padding $padding * 4;

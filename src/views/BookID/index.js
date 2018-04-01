@@ -6,7 +6,6 @@ import { RESTResolver } from "../../resources/RESTResolver";
 class BookID extends React.Component {
 	constructor(props){
 		super(props);
-		console.log(props);
 		this.state = {
 			id: "",
 			titulo: "",

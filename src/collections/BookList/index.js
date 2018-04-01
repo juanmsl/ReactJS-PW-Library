@@ -13,7 +13,7 @@ class BookList extends React.Component{
 		this.setState({
 			books: nextProps.books
 		})
-	}
+	};
 
     handleDelete = (e,obj) =>{
         //For debugging only
@@ -40,16 +40,10 @@ class BookList extends React.Component{
     };
 
 	handleBookClick = (e,obj)=>{
-		//For debugging only
-        console.log({
-            operation:"click",
-            ...obj
-        });
-        //end of debug
-        if( this.props.onBookClick ){
+		if( this.props.onBookClick ){
             this.props.onBookClick(e,obj)
         }
-	}
+	};
 
     renderRows = () =>{
         const { showButtons } = this.props;

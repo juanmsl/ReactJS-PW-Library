@@ -54,10 +54,8 @@ class Borrow extends React.Component{
 	removeFromBorrowList = (e,obj) =>{
 		const { id } = obj;
 		const { borrowIDs , books } = this.state;
-		console.log(borrowIDs);
 		const newBorrowIds = borrowIDs;
 		newBorrowIds.splice(borrowIDs.indexOf(id),1);
-		console.log(newBorrowIds);
 		const newBorrowList = newBorrowIds.map((id) => {
 			return books.find((book) =>{ return book.id === id });
 		})

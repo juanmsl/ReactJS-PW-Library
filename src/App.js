@@ -6,7 +6,7 @@ class App extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			user: {type: "prestamista"},
+			user: {type: "admin"},
 			data: this.props.data
 		}
 	}
