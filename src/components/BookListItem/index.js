@@ -41,7 +41,7 @@ class BookListItem extends React.Component{
 
 	renderAuthors = () => {
 		return this.state.info.autores.map((autor, i) => {
-			return <span className="item-author" key={i}>Hola</span>
+			return <span className="item-author" key={i}>{autor.nombre}</span>
 		});
 	};
 
