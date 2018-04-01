@@ -12,7 +12,6 @@ class Borrow extends React.Component{
 			borrowList: [],
 			books: [],
 			filteredBooks: [],
-			filter: "",
 			gettingBooks: 'pending'
 		}
 		this.restResolver = new RESTResolver();
@@ -47,13 +46,15 @@ class Borrow extends React.Component{
 	handleChange = (obj) =>{
 		this.setState({
 			...this.state,
-			filter: obj.input
-		})
+			filteredBooks: this.state.books.filter((book) => {
+				return book.nombre.toLowerCase().includes(obj.input)
+			})
+		},()=>{console.log(this.state);})
 	}
 
 	render() {
 		const { data, user } = this.props;
-		const { borrowList , books , gettingBooks , filter } = this.state;
+		const { borrowList , filteredBooks , gettingBooks } = this.state;
 		const {
 			handleBorrow ,
 			addToBorrowList ,
@@ -67,7 +68,7 @@ class Borrow extends React.Component{
 					<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
 				</aside>
 				<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
-					<BookList books={books} onBookClick={addToBorrowList}/>
+					<BookList books={filteredBooks} onBookClick={addToBorrowList}/>
 				</LoadSection>
 				<Form onSubmit={handleBorrow}>
 					<Input name="documento" required={true}/>

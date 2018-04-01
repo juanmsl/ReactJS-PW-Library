@@ -4,7 +4,9 @@ import { BookListItem } from '../../components'
 class BookList extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {};
+		this.state = {
+			books: props.books
+		};
 	}
 
     handleDelete = (e,obj) =>{
@@ -44,7 +46,8 @@ class BookList extends React.Component{
 	}
 
     renderRows = () =>{
-        const { showButtons, books } = this.props;
+        const { showButtons } = this.props;
+		const { books } = this.state;
         const { handleDelete , handleUpdate , handleBookClick } = this;
         return books.map((book, index) => {
             return <BookListItem
