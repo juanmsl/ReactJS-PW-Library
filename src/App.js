@@ -41,7 +41,7 @@ class App extends React.Component{
 
 	renderReturn = () =>{
 		return <Return {...this.state} />;
-	}
+	};
 
 	logout = () => {
 		this.setState({

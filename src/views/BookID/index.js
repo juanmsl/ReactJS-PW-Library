@@ -11,7 +11,9 @@ class BookID extends React.Component {
 			titulo: "",
 			autores: [],
 			isbn: "",
-			gettingBook: "pending"
+			historial: [],
+			gettingBook: "pending",
+			gettingHistorial: "pending"
 		};
 		this.restresolver = new RESTResolver();
 	}
@@ -27,6 +29,17 @@ class BookID extends React.Component {
 				gettingBook: "error"
 			});
 		});
+
+		this.restresolver.getHistorial(this.props.bookID, (response) => {
+			this.setState({
+				historial: response,
+				gettingHistorial: "success"
+			});
+		}, (response) => {
+			this.setState({
+				gettingHistorial: "error"
+			});
+		});
 	}
 
 	renderAutores = () =>{
@@ -37,7 +50,9 @@ class BookID extends React.Component {
 	};
 
 	renderHistory = () => {
-		return <div>Placeholder</div>
+		return this.state.historial.map((registry, i) => {
+			return <li key={i}>{registry.prestamo.fechaprestamo}</li>
+		});
 	};
 
 	handleEdit = () =>{
@@ -55,30 +70,34 @@ class BookID extends React.Component {
 		let userType = user? user.type : "";
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<LoadSection loading={gettingBook === "pending"} error={gettingBook === "error"}>
-					<article className="book">
-						<h1 className="wh-title">{nombre}</h1>
-						<section className="pw-book-content">
-							<section className="pw-book-info">
-								<ul className="pw-book-authors">
-									{renderAutores()}
-								</ul>
-								<p className="pw-book-isbn">ISBN <span>{isbn}</span></p>
+				<main className="maincontent">
+					<LoadSection loading={gettingBook === "pending"} error={gettingBook === "error"}>
+						<article className="book">
+							<h1 className="wh-title">{nombre}</h1>
+							<section className="pw-book-content">
+								<section className="pw-book-info">
+									<ul className="pw-book-authors">
+										{renderAutores()}
+									</ul>
+									<p className="pw-book-isbn">ISBN <span>{isbn}</span></p>
+								</section>
+								<LoadSection loading={gettingBook === "pending"} error={gettingBook === "error"}>
+									<ul>
+										{renderHistory()}
+									</ul>
+								</LoadSection>
 							</section>
-							<aside>
-								{renderHistory()}
-							</aside>
-						</section>
-						<section className="pw-book-buttons">
-							{ userType === "admin" &&
-								<React.Fragment>
-									<button className="wh-button shadow active" onClick={handleEdit}>Editar</button>
-									<button className="wh-button shadow alert" onClick={handleDelete}>Borrar</button>
-								</React.Fragment>
-							}
-						</section>
-					</article>
-				</LoadSection>
+							<section className="pw-book-buttons">
+								{ userType === "admin" &&
+									<React.Fragment>
+										<button className="wh-button shadow active" onClick={handleEdit}>Editar</button>
+										<button className="wh-button shadow alert" onClick={handleDelete}>Borrar</button>
+									</React.Fragment>
+								}
+							</section>
+						</article>
+					</LoadSection>
+				</main>
 			</BasePage>
 		);
 	}
