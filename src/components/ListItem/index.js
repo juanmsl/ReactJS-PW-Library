@@ -16,7 +16,7 @@ class ListItem extends React.Component{
 
 	handleClick=(e)=>{
 		if( this.props.onClick ){
-			this.props.onClick(e,this.state)
+			this.props.onClick(e, this.state.value)
 		}
 	}
 
