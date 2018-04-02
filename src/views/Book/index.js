@@ -9,11 +9,9 @@ class Book extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			autores: [],
-			available: [],
-			selectedIDs: [],
-			selected: [],
-			newAuthors: [],
+			authors: [],
+			availableAuthors: [],
+			selectedAuthors: [],
 			gettingAuthors: "pending"
 		};
 		this.restResolver = new RESTResolver();
@@ -21,13 +19,14 @@ class Book extends React.Component{
 
 	componentWillMount = () => {
 		this.restResolver.getAuthors((response) => {
+			let authors = response.map((author, i) => { return author.nombre });
 			this.setState({
-				autores: response,
-				available: response.map((autor) => {return autor.nombre}),
+				authors: authors,
+				availableAuthors: authors,
 				gettingAuthors: 'success'
 			});
 		}, (response) => {
-			let autores = [
+			let authors = [
 				{
 					id: 1,
 					nombre: "Juan"
@@ -40,95 +39,75 @@ class Book extends React.Component{
 					id: 3,
 					nombre: "Carlos"
 				}
-			];
+			].map((author, i) => { return author.nombre });
 			this.setState({
-				autores: autores,
-				available: autores.map((autor) => {return autor.nombre}),
+				authors: authors,
+				availableAuthors: authors,
 				gettingAuthors: 'error'
 			});
 		});
 	};
 
-	handleSubmit = (e, state) =>{
-		const { newAuthors , selected } = this.state;
-		const selectedAuths = newAuthors.length > 0 ? selected.concat(newAuthors) : selected;
-		const values = {
-			...state,
-			autores: selectedAuths
-		};
-		console.log(values);
-		console.log("Please implement submit method");
-	};
-
-	getFilteredAvailable = (ids) =>{
-		const { autores } = this.state;
-		const aval = autores.filter((autor) => {
-			return !ids.includes(autor.id)
+	removeFrom = (list, element) => {
+		return list.filter((item, i) => {
+			return item !== element;
 		});
-		return aval.map((item) => {return item.nombre})
 	};
 
-	updateLists = (selectedIDs, newAuthors) =>{
-		const { autores } = this.state;
-		let newSelected = selectedIDs.map((id) => {
-			return autores.find((autor) => { return autor.id === id })
-		}).map((a) => {return a.nombre});
+	addTo = (list, element) => {
+		list.push(element);
+		return list;
+	};
+
+	selectAuthor = (e, author) => {
+		let { availableAuthors, selectedAuthors } = this.state;
+		availableAuthors = this.removeFrom(availableAuthors, author);
+		selectedAuthors = this.addTo(selectedAuthors, author);
 		this.setState({
-			selectedIDs: selectedIDs,
-			selected: newSelected,
-			available: this.getFilteredAvailable(selectedIDs),
-			newAuthors: newAuthors
-		})
-	};
-
-	addAuthor = (e,autor) =>{
-		const { index } = autor;
-		const { selectedIDs , available , autores , newAuthors } = this.state;
-		const author = autores.find((a) => { return a.nombre === available[index] });
-		selectedIDs.push( author.id );
-		this.updateLists(selectedIDs,newAuthors);
-	};
-
-	removeAuthor = (e,autor) =>{
-		const { index } = autor;
-		const { autores , selectedIDs , selected , newAuthors } = this.state;
-		const auth = selected[index];
-		const found = autores.find((autor) => {
-			return autor.nombre === auth;
+			availableAuthors: availableAuthors,
+			selectedAuthors: selectedAuthors
 		});
-		if( found === undefined ){
-			newAuthors.splice(selectedIDs.indexOf(auth),1);
-		}else{
-			selectedIDs.splice(selectedIDs.indexOf(found.id),1);
-		}
-		this.updateLists(selectedIDs,newAuthors)
 	};
 
-	handleNewAuthor = (e,state) =>{
-		let { newAuthor = "" } = state;
-		newAuthor = newAuthor.trim();
-		if( newAuthor !== "" ){
-			const { autores , selectedIDs } = this.state;
-			let found = autores.find((autor) => {return autor.nombre === newAuthor });
-			if( found === undefined ){
-				const { newAuthors } = this.state;
-				if( !newAuthors.includes(newAuthor) ){
-					newAuthors.push(newAuthor);
-					this.updateLists(selectedIDs, newAuthors);
-				}
-			}
+	deselectAuthor = (e, author) => {
+		let { authors, availableAuthors, selectedAuthors } = this.state;
+		selectedAuthors = this.removeFrom(selectedAuthors, author);
+		if(authors.includes(author)) {
+			availableAuthors = this.addTo(availableAuthors, author);
 		}
+		this.setState({
+			availableAuthors: availableAuthors,
+			selectedAuthors: selectedAuthors
+		});
+	};
+
+	addAuthor = (e, state) => {
+		const { autor } = state;
+		let { authors, selectedAuthors } = this.state;
+		if(!authors.includes(autor) && !selectedAuthors.includes(autor)) {
+			selectedAuthors = this.addTo(selectedAuthors, autor);
+		}
+		this.setState({
+			selectedAuthors: selectedAuthors
+		});
+	};
+
+	handleSubmit = (e, state) =>{
+		let data = {
+			...state,
+			autores: this.state.selectedAuthors
+		};
+		console.log(data);
+		console.log("Please implement submit method");
 	};
 
 	render() {
 		const { data, user } = this.props;
-		const { handleSubmit, removeAuthor, addAuthor, handleNewAuthor } = this;
-		const { available , selected , newAuthors } = this.state;
+		const { handleSubmit, selectAuthor, deselectAuthor, addAuthor } = this;
+		const { availableAuthors, selectedAuthors } = this.state;
 
-		const selectedAuths = newAuthors.length > 0 ? selected.concat(newAuthors) : selected;
 		const emptyAuthors  = "-- No hay autores que mostrar --";
 		const emptySelected = "-- No hay autores seleccionados --";
-
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
@@ -145,11 +124,10 @@ class Book extends React.Component{
 						<section>
 							<h3>Autores</h3>
 						</section>
-						<Label>Autores</Label>
-						<List onClick={addAuthor} items={available} emptyMessage={emptyAuthors}/>
+						<List onClick={selectAuthor} items={availableAuthors} emptyMessage={emptyAuthors}/>
 						<Label>Selected</Label>
-						<List onClick={removeAuthor} items={selectedAuths} emptyMessage={emptySelected}/>
-						<Form onSubmit={handleNewAuthor}>
+						<List onClick={deselectAuthor} items={selectedAuthors} emptyMessage={emptySelected}/>
+						<Form onSubmit={addAuthor}>
 							<Field>
 								<Input id="autor-input" name="autor" placeholder="Autor" className="pw-input"/>
 								<Label id="autor-label" htmlFor="autor-input" className="pw-label pwi pwi-users" />
