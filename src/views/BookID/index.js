@@ -1,106 +1,103 @@
-import $ from "jquery";
 import React from 'react'
 import { BasePage } from "..";
-import path from 'path';
+import { LoadSection } from "../../components";
+import { RESTResolver } from "../../resources/RESTResolver";
 
 class BookID extends React.Component {
 	constructor(props){
 		super(props);
-		console.log(props);
 		this.state = {
 			id: "",
 			titulo: "",
 			autores: [],
-			isbn: ""
-		}
+			isbn: "",
+			historial: [],
+			gettingBook: "pending",
+			gettingHistorial: "pending"
+		};
+		this.restresolver = new RESTResolver();
 	}
 
 	componentWillMount() {
-		this.getBook();
-	}
-
-	getBook = () => {
-		const { data, bookID } = this.props;
-		const { host, getbook } = data;
-
-		let url = path.join(host, getbook);
-		url = path.join(url, bookID);
-
-		$.ajax({
-			type: "GET",
-			url: url,
-			success: function(response) {
-				this.setState({
-					response
-				});
-			}.bind(this),
-			error: function(response) { // while the backend is ready, after that, the error function will be removed
-				this.setState({
-					id: 1,
-					titulo: "Moby Dick",
-					autores: [{nombre:"Herman Melville"}],
-					isbn: "9781974305032"
-				});
-			}.bind(this)
+		this.restresolver.getBook(this.props.bookID, (response) => {
+			this.setState(response);
+			this.setState({
+				gettingBook: "success"
+			});
+		}, (response) => {
+			this.setState({
+				gettingBook: "error"
+			});
 		});
-	};
+
+		this.restresolver.getHistorial(this.props.bookID, (response) => {
+			this.setState({
+				historial: response,
+				gettingHistorial: "success"
+			});
+		}, (response) => {
+			this.setState({
+				gettingHistorial: "error"
+			});
+		});
+	}
 
 	renderAutores = () =>{
 		const { autores } = this.state;
 		return autores.map((autor,key) => {
-			return <li key={key}>{autor.nombre}</li>
+			return <li className="pw-book-author" key={key}>{autor.nombre}</li>
 		})
-	}
+	};
 
 	renderHistory = () => {
-		return <div>Placeholder</div>
-	}
+		return this.state.historial.map((registry, i) => {
+			return <li key={i}>{registry.prestamo.fechaprestamo}</li>
+		});
+	};
 
 	handleEdit = () =>{
 		console.log("Placeholder for edit. Please implement.");
-	}
+	};
 
 	handleDelete = () =>{
 		console.log("Placeholder for delete. Please implement.");
-	}
-
-	handleBorrow = () =>{
-		console.log("Placeholder for borrow. Please implement.");
-	}
+	};
 
 	render(){
-		const { renderAutores, renderHistory, handleEdit, handleDelete, handleBorrow } = this;
+		const { renderAutores, renderHistory, handleEdit, handleDelete } = this;
 		const { data, user } = this.props;
-		const { titulo, isbn } = this.state;
+		const { nombre, isbn, gettingBook } = this.state;
 		let userType = user? user.type : "";
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<article>
-					<header>
-						<h1>{titulo}</h1>
-					</header>
-					<main>
-						<p>{`ISBN: ${isbn}`}</p>
-						<h3>Autores:</h3>
-						<ul>
-							{renderAutores()}
-						</ul>
-					</main>
-					<aside>
-						{renderHistory()}
-					</aside>
-					{ userType === "prestamista" &&
-						<div>
-							<button onClick={handleBorrow}>Prestar</button>
-						</div>
-					}
-					{ userType === "admin" &&
-						<div>
-							<button onClick={handleEdit}>Editar</button>
-							<button onClick={handleDelete}>Borrar</button>
-						</div>
-					}
-				</article>
+				<main className="maincontent">
+					<LoadSection loading={gettingBook === "pending"} error={gettingBook === "error"}>
+						<article className="book">
+							<h1 className="wh-title">{nombre}</h1>
+							<section className="pw-book-content">
+								<section className="pw-book-info">
+									<ul className="pw-book-authors">
+										{renderAutores()}
+									</ul>
+									<p className="pw-book-isbn">ISBN <span>{isbn}</span></p>
+								</section>
+								<LoadSection loading={gettingBook === "pending"} error={gettingBook === "error"}>
+									<ul>
+										{renderHistory()}
+									</ul>
+								</LoadSection>
+							</section>
+							<section className="pw-book-buttons">
+								{ userType === "admin" &&
+									<React.Fragment>
+										<button className="wh-button shadow active" onClick={handleEdit}>Editar</button>
+										<button className="wh-button shadow alert" onClick={handleDelete}>Borrar</button>
+									</React.Fragment>
+								}
+							</section>
+						</article>
+					</LoadSection>
+				</main>
 			</BasePage>
 		);
 	}

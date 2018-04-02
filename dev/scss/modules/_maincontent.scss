@@ -8,6 +8,8 @@
 	flex-grow: 1;
 	margin: $margin;
 	padding: $padding;
+	display: flex;
+	flex-direction: column;
 
 	@include from(laptop) {
 		width: 80vw;

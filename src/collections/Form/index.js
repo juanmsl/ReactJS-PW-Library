@@ -13,25 +13,31 @@ class Form extends React.Component{
 		if( name !== undefined ){
 			this.setState({
 				[name]: value
-			})
+			},this.handleChange)
 		}else{
 			this.setState({
 				[id]: value
-			})
+			},this.handleChange)
+		}
+	};
+
+	handleChange = (s) =>{
+		if( this.props.onChange ){
+			this.props.onChange(this.state)
 		}
 	}
 
 	handlePasswordChange = (e,obj) =>{
 		//TODO: Handle password change: how should I store it in front end
 		this.handleInputChange(e,obj)
-	}
+	};
 
 	handleSubmit = (e) =>{
-		e.preventDefault()
+		e.preventDefault();
 		if( this.props.onSubmit ){
-			this.props.onSubmit(e,this.state)
+			this.props.onSubmit(e, this.state)
 		}
-	}
+	};
 
 	transform = (child) =>{
 		if( child.type === Input ){

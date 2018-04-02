@@ -8,8 +8,15 @@ class Navbar extends React.Component {
 
 		return (
 			<nav className="pw-navbar">
-				<Link to="/" className="pw-navbar-section">
-					{app_name}{user !== null ? ` | ${user.type}` : ""}
+				<Link to="/" className="pw-navbar-header">
+					<section className="pw-navbar-section">{app_name}</section>
+					{
+						user !== null &&
+						<React.Fragment>
+							{ user.type !== undefined && <section className="pw-navbar-section">{user.type}</section> }
+							{ user.nombre !== undefined && <section className="pw-navbar-section">{user.nombre}</section> }
+						</React.Fragment>
+					}
 				</Link>
 				{
 					user === null ?

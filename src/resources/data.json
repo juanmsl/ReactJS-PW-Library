@@ -1,7 +1,10 @@
 {
   "app_name": "Biblioteca",
   "copyright": "Biblioteca | Copyright © 2018 - Todos los derechos reservados a sus respectivos dueños",
-  "host": "http:\\\\localhost:8080",
+  "host": "http:\\\\192.168.0.7:8080",
   "getbooks": "/libros",
-  "getbook": "/libro"
+  "getbook": "/libro",
+  "gethistorial": "/historial",
+  "getuser": "/usuario",
+  "getauthors": "/autores"
 }
