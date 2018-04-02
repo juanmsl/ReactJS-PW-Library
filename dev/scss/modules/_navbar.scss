@@ -1,12 +1,47 @@
 .pw-navbar {
 	display: flex;
 	justify-content: space-between;
-	background: $gray-E;
+	background: $primary-color;
 	position: sticky;
 	top: 0;
+	color: $white;
 
 	.pw-navbar-section {
-		background: $gray-D;
+		background: $primary-darker-color;
 		padding: $padding;
+	}
+
+	.pw-navbar-header {
+		display: flex;
+
+		.pw-navbar-section {
+			@extend .pw-navbar-section;
+			position: relative;
+			padding-left: 44px;
+
+			&:first-child {
+				padding-left: $padding;
+			}
+
+			&:after {
+				content: '';
+				position: absolute;
+				border-left: 22px solid $primary-darker-color;
+				border-bottom: 22px solid transparent;
+				border-top: 22px solid transparent;
+				left: 100%;
+				top: 0;
+				height: 100%;
+				z-index: 100;
+			}
+
+			&:nth-child(even) {
+				background: $primary-color;
+
+				&:after {
+					border-left-color: $primary-color;
+				}
+			}
+		}
 	}
 }

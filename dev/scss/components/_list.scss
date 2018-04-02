@@ -1,0 +1,18 @@
+.pw-list-container {
+	flex-grow: 1;
+}
+
+.pw-list {
+	list-style: none;
+	margin: 0;
+	padding: $padding 0;
+	display: flex;
+	flex-wrap: wrap;
+
+	.pw-item {
+		background: lighten($secondary-color, 8);
+		padding: $padding;
+		cursor: pointer;
+		margin: $margin / 2;
+	}
+}

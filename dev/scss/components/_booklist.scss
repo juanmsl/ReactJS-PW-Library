@@ -6,7 +6,7 @@
 	.item {
 		display: flex;
 		align-items: center;
-		padding: 0 $padding;
+		padding: $padding;
 		border-bottom: 1px solid $gray-C;
 
 		&:last-child {
@@ -30,9 +30,17 @@
 		font-size: 0.7em;
 		padding: $padding / 2 $padding;
 		margin-left: $margin;
+		border-radius: $gutter;
 	}
 
-	.item-autor {
+	.item-authors {
+		display: grid;
+		grid-gap: $gutter;
+		grid-auto-flow: column;
+		justify-content: left;
+	}
+
+	.item-author {
 		font-size: 0.8em;
 	}
 }

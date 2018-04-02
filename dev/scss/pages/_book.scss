@@ -1,0 +1,48 @@
+.book {
+	padding: $padding;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+
+	.pw-book-content {
+		flex-grow: 1;
+		display: grid;
+		grid-template-columns: 1fr 200px;
+		grid-gap: $gutter;
+	}
+
+	.pw-book-info {
+		flex-grow: 1;
+	}
+
+	.pw-book-authors {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+	}
+
+	.pw-book-author {
+		margin-right: $margin;
+	}
+
+	.pw-book-isbn {
+		font-size: 0.8em;
+	}
+
+	.pw-book-buttons {
+		margin-top: $margin;
+		display: grid;
+		grid-auto-flow: column;
+		grid-gap: $gutter;
+		justify-content: right;
+	}
+}
+
+.pw-double-container {
+	flex-grow: 1;
+	display: grid;
+	grid-template-columns: 350px 1fr;
+	grid-gap: $gutter * 4;
+	align-content: center;
+}
