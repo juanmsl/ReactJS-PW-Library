@@ -1,11 +1,11 @@
 .pw-loading {
 	flex-grow: 1;
-	min-height: 500px;
-	background: $gray-D;
+	background: $gray-E;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	padding: $padding * 5;
 
 	.pw-loading-icon {
 		width: 30px;

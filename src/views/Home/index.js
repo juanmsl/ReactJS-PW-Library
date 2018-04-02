@@ -68,7 +68,8 @@ class Home extends React.Component{
 					<section className="pw-button-container">
 						{ type === "admin" && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
 						{ type === "admin" && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
-						{ type === "prestamista" && <Link to="/borrow" className="pw-button wh-button active shadow">Relizar un prestamo</Link> }
+						{ type === "prestamista" && <Link to="/borrow" className="pw-button wh-button success shadow">Relizar un prestamo</Link> }
+						{ type === "prestamista" && <Link to="/return" className="pw-button wh-button active shadow">Relizar una devolución</Link> }
 					</section>
 					<SearchBar typeUser={type} onChange={handleFilter} />
 					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>

@@ -2,11 +2,23 @@ import React from 'react'
 import { BrowserRouter , Redirect , Route , Switch } from 'react-router-dom'
 import { Book , BookID , Borrow , Home , Login , Register , Return , Root } from './views'
 
+class Logout extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+		this.props.logout();
+	}
+
+	render() {
+		return ( <span>Logout</span> );
+	}
+}
+
 class App extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			user: {type: "admin"},
+			user: null,
 			data: this.props.data
 		}
 	}
@@ -39,15 +51,18 @@ class App extends React.Component{
 		return <Register {...this.state} />;
 	};
 
-	renderReturn = () =>{
+	renderReturn = () => {
 		return <Return {...this.state} />;
+	};
+
+	renderLogout = () => {
+		return <Logout logout={this.logout}/>
 	};
 
 	logout = () => {
 		this.setState({
 			user: null
 		});
-		return null;
 	};
 
 	renderRoutes = () => {
@@ -69,7 +84,7 @@ class App extends React.Component{
 					<Route exact path={"/book/:id"} render={this.renderBookId} />
 					<Route exact path={"/borrow"} render={this.renderBorrow} />
 					<Route exact path={"/return"} render={this.renderReturn} />
-					<Route exact path={"/logout"} render={this.logout} />
+					<Route exact path={"/logout"} render={this.renderLogout} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)
@@ -80,7 +95,7 @@ class App extends React.Component{
 					<Route exact path={"/book/:id"} render={this.renderBookId} />
 					<Route exact path={"/book"} render={this.renderBook} />
 					<Route exact path={"/register"} render={this.renderRegister} />
-					<Route exact path={"/logout"} render={this.logout} />
+					<Route exact path={"/logout"} render={this.renderLogout} />
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)

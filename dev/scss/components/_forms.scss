@@ -8,7 +8,6 @@
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-end;
-		flex-grow: 1;
     }
 
     .pw-label {
@@ -37,6 +36,10 @@
 
 		&:focus, &:focus ~ .pw-label {
 			color: $primary-darker-color;
+		}
+
+		&:invalid {
+			outline: 0;
 		}
 	}
 

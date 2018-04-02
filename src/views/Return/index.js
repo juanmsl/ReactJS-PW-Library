@@ -10,7 +10,7 @@ class Return extends React.Component{
 		this.state={
 			books: [],
 			gettingBooks: "pending"
-		}
+		};
 		this.restResolver = new RESTResolver();
 	}
 
@@ -25,12 +25,12 @@ class Return extends React.Component{
 				gettingBooks: 'error'
 			});
 		});
-	}
+	};
 
 	handleSubmit = (e,state) =>{
 		console.log(state);
 		console.log("Please implement me handleSubmit");
-	}
+	};
 
 	render(){
 		const { data, user } = this.props;
@@ -39,23 +39,28 @@ class Return extends React.Component{
 
 		const bookList = books.map((book) => {
 			return {value: book , label: book.nombre }
-		})
+		});
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
-					<Form onSubmit={handleSubmit}>
-						<Field>
-							<ComboBox name="libro" options={bookList} emptyMessage="-- No hay libros que retornar --"/>
-							<Label htmlFor="libro" >Libro</Label>
-						</Field>
-						<Field>
-							<Input name="documento" />
-							<Label htmlFor="documento" >Documento</Label>
-						</Field>
-						<Button submit>Regresar</Button>
-					</Form>
-				</LoadSection>
+				<main className="maincontent">
+					<h1 className="underline">Devolver un libro</h1>
+					<section className="pw-form-container">
+						<Form onSubmit={handleSubmit} className="pw-form" autocomplete="off">
+							<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
+								<Field>
+									<ComboBox id="book-input" name="book" options={bookList} className="pw-input" required={true} emptyMessage="-- No hay libros que retornar --"/>
+									<Label id="book-label" htmlFor="book-input" className="pw-label pwi pwi-user"/>
+								</Field>
+							</LoadSection>
+							<Field>
+								<Input id="document-input" name="document" placeholder="Usuario" className="pw-input" required={true}/>
+								<Label id="document-label" htmlFor="document-input" className="pw-label pwi pwi-user"/>
+							</Field>
+							<Button submit className="pw-button wh-button active shadow">Registrar devolución</Button>
+						</Form>
+					</section>
+				</main>
 			</BasePage>
 		);
 	}

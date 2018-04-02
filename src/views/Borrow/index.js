@@ -96,15 +96,16 @@ class Borrow extends React.Component{
 		const {
 			handleBorrow ,
 			addToBorrowList ,
-			removeFromBorrowList ,
+			removeFromBorrowList,
 			handleFilter } = this;
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent pw-borrow">
+					<h1 className="underline">Realizar un prestamo</h1>
 					<section className="pw-borrow-content">
 						<section className="pw-borrow-section">
-							<h1 className="underline">Libros a prestar</h1>
+							<h4>Libros a prestar</h4>
 							<Form className="pw-form" autocomplete="off">
 								<Field className="pw-field">
 									<Input id="document-input" name="documento" placeholder="Documento del solicitante" className="pw-input" required={true}/>
@@ -114,7 +115,7 @@ class Borrow extends React.Component{
 							<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
 						</section>
 						<section>
-							<h1 className="underline">Libros disponibles</h1>
+							<h4>Libros disponibles</h4>
 							<SearchBar onChange={handleFilter}/>
 							<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
 								<BookList books={filteredBooks} onBookClick={addToBorrowList}/>
@@ -122,7 +123,7 @@ class Borrow extends React.Component{
 						</section>
 					</section>
 					<section className="pw-borrow-footer">
-						<Button submit onClick={handleBorrow}  className="pw-button wh-button active shadow">Realizar prestamo</Button>
+						<Button submit onClick={handleBorrow} className="pw-button wh-button active shadow">Realizar prestamo</Button>
 					</section>
 				</main>
 			</BasePage>

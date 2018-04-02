@@ -38,3 +38,11 @@
 		justify-content: right;
 	}
 }
+
+.pw-double-container {
+	flex-grow: 1;
+	display: grid;
+	grid-template-columns: 350px 1fr;
+	grid-gap: $gutter * 4;
+	align-content: center;
+}

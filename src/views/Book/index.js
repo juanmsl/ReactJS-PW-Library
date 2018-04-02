@@ -3,7 +3,7 @@ import { BasePage } from "..";
 import { Button , Input , Label } from '../../components';
 import { Field , Form , List } from '../../collections';
 import { RESTResolver } from "../../resources/RESTResolver";
-
+import { LoadSection } from "../../components";
 
 class Book extends React.Component{
 	constructor(props){
@@ -26,23 +26,7 @@ class Book extends React.Component{
 				gettingAuthors: 'success'
 			});
 		}, (response) => {
-			let authors = [
-				{
-					id: 1,
-					nombre: "Juan"
-				},
-				{
-					id: 2,
-					nombre: "Luis"
-				},
-				{
-					id: 3,
-					nombre: "Carlos"
-				}
-			].map((author, i) => { return author.nombre });
 			this.setState({
-				authors: authors,
-				availableAuthors: authors,
 				gettingAuthors: 'error'
 			});
 		});
@@ -104,39 +88,44 @@ class Book extends React.Component{
 	render() {
 		const { data, user } = this.props;
 		const { handleSubmit, selectAuthor, deselectAuthor, addAuthor } = this;
-		const { availableAuthors, selectedAuthors } = this.state;
+		const { availableAuthors, selectedAuthors, gettingAuthors } = this.state;
 
-		const emptyAuthors  = "-- No hay autores que mostrar --";
-		const emptySelected = "-- No hay autores seleccionados --";
+		const emptyAuthors  = "No hay autores para agregar";
+		const emptySelected = "Seleccione o ingrese los autores del libro";
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
-				<section className="pw-form-container">
-					<Form onSubmit={handleSubmit} className="pw-form" autocomplete="off">
-						<Field>
-							<Input id="title-input" name="title" placeholder="Titulo" className="pw-input" required={true} />
-							<Label id="title-label" htmlFor="title-input" className="pw-label pwi pwi-book"/>
-						</Field>
-						<Field>
-							<Input id="isbn-input" name="isbn" placeholder="ISBN" className="pw-input" required={true} />
-							<Label id="isbn-label" htmlFor="isbn-input" className="pw-label pwi pwi-qrcode"/>
-						</Field>
-						<section>
-							<h3>Autores</h3>
+				<main className="maincontent">
+					<h1 className="underline">Agregar un libro</h1>
+					<section className="pw-double-container">
+						<section className="pw-form-container">
+							<Form onSubmit={handleSubmit} className="pw-form" autocomplete="off">
+								<Field>
+									<Input id="title-input" name="title" placeholder="Titulo" className="pw-input" required={true} />
+									<Label id="title-label" htmlFor="title-input" className="pw-label pwi pwi-book"/>
+								</Field>
+								<Field>
+									<Input id="isbn-input" name="isbn" placeholder="ISBN" className="pw-input" required={true} />
+									<Label id="isbn-label" htmlFor="isbn-input" className="pw-label pwi pwi-qrcode"/>
+								</Field>
+								<h6>Autores</h6>
+								<List onClick={deselectAuthor} items={selectedAuthors} emptyMessage={emptySelected}/>
+								<Button submit className="pw-submit wh-button active shadow">Agregar libro</Button>
+							</Form>
 						</section>
-						<List onClick={selectAuthor} items={availableAuthors} emptyMessage={emptyAuthors}/>
-						<Label>Selected</Label>
-						<List onClick={deselectAuthor} items={selectedAuthors} emptyMessage={emptySelected}/>
-						<Form onSubmit={addAuthor}>
+						<Form onSubmit={addAuthor} className="pw-form" autocomplete="off">
+							<LoadSection loading={gettingAuthors === "pending"} error={gettingAuthors === "error"}>
+								<h3>Autores en el sistema</h3>
+								<List onClick={selectAuthor} items={availableAuthors} emptyMessage={emptyAuthors}/>
+							</LoadSection>
 							<Field>
 								<Input id="autor-input" name="autor" placeholder="Autor" className="pw-input"/>
 								<Label id="autor-label" htmlFor="autor-input" className="pw-label pwi pwi-users" />
 							</Field>
-							<Button submit>Add</Button>
+							<Button submit className="pw-submit wh-button active shadow">Agregar y crear autor</Button>
 						</Form>
-						<Button submit className="pw-submit wh-button active shadow">Agregar libro</Button>
-					</Form>
-				</section>
+					</section>
+				</main>
 			</BasePage>
 		);
 	}

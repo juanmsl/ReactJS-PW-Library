@@ -22,7 +22,7 @@ class ListItem extends React.Component{
 
 	render(){
 		return(
-			<li onClick={this.handleClick}>{this.state.value}</li>
+			<li className="pw-item" onClick={this.handleClick}>{this.state.value}</li>
 		);
 	}
 }
