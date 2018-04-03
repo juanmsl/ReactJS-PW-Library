@@ -2,17 +2,19 @@ import React from 'react'
 import { BasePage } from "..";
 import { Button , Input , Label } from '../../components'
 import { Field , Form } from '../../collections'
+import {RESTResolver} from "../../resources/RESTResolver";
 
 class Login extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={}
+		this.restresolver = new RESTResolver();
 	}
 
 	handleSubmit = (e,state) =>{
-		//TODO: Change log for actual login process
-        console.log(state);
-		//end todo
+		this.restresolver.login(state, (response) => {
+        	this.props.login(response);
+		});
 	};
 
 	render(){
@@ -26,7 +28,7 @@ class Login extends React.Component{
 					<section className="pw-form-container">
 						<Form id="login-form" onSubmit={handleSubmit} className="pw-form" autocomplete="off">
 							<Field>
-								<Input id="username-input" name="username" placeholder="Usuario" className="pw-input" required={true}/>
+								<Input id="username-input" name="usuario" placeholder="Usuario" className="pw-input" required={true}/>
 								<Label id="username-label" htmlFor="username-input" className="pw-label pwi pwi-user"/>
 							</Field>
 							<Field>

@@ -5,6 +5,7 @@ import { Button , Input , Label , LoadSection } from '../../components';
 import { BookList , Form } from '../../collections';
 import { RESTResolver } from "../../resources/RESTResolver";
 import { Field } from "../../collections";
+import { Redirect } from 'react-router-dom';
 
 class Borrow extends React.Component{
 	constructor(props){
@@ -14,7 +15,8 @@ class Borrow extends React.Component{
 			borrowList: [],
 			books: [],
 			filteredBooks: [],
-			gettingBooks: 'pending'
+			gettingBooks: 'pending',
+			shouldRedirect: false
 		};
 		this.restResolver = new RESTResolver();
 	}
@@ -73,8 +75,21 @@ class Borrow extends React.Component{
 		})
 	};
 
-	handleBorrow = () =>{
-		console.log("Please implement handleBorrow");
+	handleBorrow = (e,state) =>{
+		const data = {
+			responsable: state.documento,
+			librosPrestamo: this.state.borrowIDs.map((book, i) => {
+				return {
+					id: book
+				};
+			})
+		};
+		this.restResolver.borrow(data, (response) => {
+			console.log(response);
+			this.setState({
+				shouldRedirect: true
+			});
+		});
 	};
 
 	handleFilter = (obj) =>{
@@ -92,12 +107,16 @@ class Borrow extends React.Component{
 
 	render() {
 		const { data, user } = this.props;
-		const { borrowList , filteredBooks , gettingBooks } = this.state;
+		const { borrowList , filteredBooks , gettingBooks, shouldRedirect } = this.state;
 		const {
 			handleBorrow ,
 			addToBorrowList ,
 			removeFromBorrowList,
 			handleFilter } = this;
+
+		if( shouldRedirect ){
+			return <Redirect push to="/"/>
+		}
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
@@ -106,13 +125,14 @@ class Borrow extends React.Component{
 					<section className="pw-borrow-content">
 						<section className="pw-borrow-section">
 							<h4>Libros a prestar</h4>
-							<Form className="pw-form" autocomplete="off">
+							<Form className="pw-form" autocomplete="off" onSubmit={handleBorrow}>
 								<Field className="pw-field">
 									<Input id="document-input" name="documento" placeholder="Documento del solicitante" className="pw-input" required={true}/>
 									<Label id="document-label" htmlFor="document-input" className="pw-label pwi pwi-user" />
 								</Field>
+								<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
+								<Button submit className="pw-button wh-button active shadow">Realizar prestamo</Button>
 							</Form>
-							<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
 						</section>
 						<section>
 							<h4>Libros disponibles</h4>
@@ -121,9 +141,6 @@ class Borrow extends React.Component{
 								<BookList books={filteredBooks} onBookClick={addToBorrowList}/>
 							</LoadSection>
 						</section>
-					</section>
-					<section className="pw-borrow-footer">
-						<Button submit onClick={handleBorrow} className="pw-button wh-button active shadow">Realizar prestamo</Button>
 					</section>
 				</main>
 			</BasePage>
