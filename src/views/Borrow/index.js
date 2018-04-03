@@ -73,9 +73,9 @@ class Borrow extends React.Component{
 		})
 	};
 
-	handleBorrow = () =>{
+	handleBorrow = (e,state) =>{
 		const data = {
-			responsable: "",
+			responsable: state.documento,
 			libros: this.state.borrowIDs
 		};
 		console.log(data);
@@ -110,13 +110,14 @@ class Borrow extends React.Component{
 					<section className="pw-borrow-content">
 						<section className="pw-borrow-section">
 							<h4>Libros a prestar</h4>
-							<Form className="pw-form" autocomplete="off">
+							<Form className="pw-form" autocomplete="off" onSubmit={handleBorrow}>
 								<Field className="pw-field">
 									<Input id="document-input" name="documento" placeholder="Documento del solicitante" className="pw-input" required={true}/>
 									<Label id="document-label" htmlFor="document-input" className="pw-label pwi pwi-user" />
 								</Field>
+								<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
+								<Button submit className="pw-button wh-button active shadow">Realizar prestamo</Button>
 							</Form>
-							<BookList books={borrowList} onBookClick={removeFromBorrowList}/>
 						</section>
 						<section>
 							<h4>Libros disponibles</h4>
@@ -125,9 +126,6 @@ class Borrow extends React.Component{
 								<BookList books={filteredBooks} onBookClick={addToBorrowList}/>
 							</LoadSection>
 						</section>
-					</section>
-					<section className="pw-borrow-footer">
-						<Button submit onClick={handleBorrow} className="pw-button wh-button active shadow">Realizar prestamo</Button>
 					</section>
 				</main>
 			</BasePage>
