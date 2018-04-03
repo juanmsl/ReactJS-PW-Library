@@ -3,13 +3,15 @@ import { BasePage } from '../';
 import { Form , Field } from '../../collections';
 import { Button , ComboBox , Input , Label , LoadSection } from '../../components';
 import { RESTResolver } from "../../resources/RESTResolver";
+import { Redirect } from 'react-router-dom';
 
 class Return extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
 			books: [],
-			gettingBooks: "pending"
+			gettingBooks: "pending",
+			shouldRedirect: false
 		};
 		this.restResolver = new RESTResolver();
 	}
@@ -34,17 +36,24 @@ class Return extends React.Component{
 		};
 		this.restResolver.returnBook(data, (response) => {
 			console.log(response);
+			this.setState({
+				shouldRedirect: true
+			});
 		});
 	};
 
 	render(){
 		const { data, user } = this.props;
 		const { handleSubmit } = this;
-		const { gettingBooks , books } = this.state;
+		const { gettingBooks , books, shouldRedirect } = this.state;
 
 		const bookList = books.map((book) => {
 			return {value: book , label: book.nombre }
 		});
+
+		if( shouldRedirect ){
+			return <Redirect push to="/"/>
+		}
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>

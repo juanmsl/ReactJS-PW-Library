@@ -4,6 +4,7 @@ import { Button , Input , Label } from '../../components';
 import { Field , Form , List } from '../../collections';
 import { RESTResolver } from "../../resources/RESTResolver";
 import { LoadSection } from "../../components";
+import { Redirect } from 'react-router-dom';
 
 class Book extends React.Component{
 	constructor(props){
@@ -12,7 +13,8 @@ class Book extends React.Component{
 			authors: [],
 			availableAuthors: [],
 			selectedAuthors: [],
-			gettingAuthors: "pending"
+			gettingAuthors: "pending",
+			shouldRedirect: false
 		};
 		this.restResolver = new RESTResolver();
 	};
@@ -87,16 +89,23 @@ class Book extends React.Component{
 		};
 		this.restResolver.addBook(data, (response) => {
 			console.log(response);
+			this.setState({
+				shouldRedirect: true
+			});
 		});
 	};
 
 	render() {
 		const { data, user } = this.props;
 		const { handleSubmit, selectAuthor, deselectAuthor, addAuthor } = this;
-		const { availableAuthors, selectedAuthors, gettingAuthors } = this.state;
+		const { availableAuthors, selectedAuthors, gettingAuthors, shouldRedirect } = this.state;
 
 		const emptyAuthors  = "No hay autores para agregar";
 		const emptySelected = "Seleccione o ingrese los autores del libro";
+
+		if( shouldRedirect ){
+			return <Redirect push to="/"/>
+		}
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>

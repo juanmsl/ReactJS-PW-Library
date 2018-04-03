@@ -5,6 +5,7 @@ import { Button , Input , Label , LoadSection } from '../../components';
 import { BookList , Form } from '../../collections';
 import { RESTResolver } from "../../resources/RESTResolver";
 import { Field } from "../../collections";
+import { Redirect } from 'react-router-dom';
 
 class Borrow extends React.Component{
 	constructor(props){
@@ -14,7 +15,8 @@ class Borrow extends React.Component{
 			borrowList: [],
 			books: [],
 			filteredBooks: [],
-			gettingBooks: 'pending'
+			gettingBooks: 'pending',
+			shouldRedirect: false
 		};
 		this.restResolver = new RESTResolver();
 	}
@@ -84,6 +86,9 @@ class Borrow extends React.Component{
 		};
 		this.restResolver.borrow(data, (response) => {
 			console.log(response);
+			this.setState({
+				shouldRedirect: true
+			});
 		});
 	};
 
@@ -102,12 +107,16 @@ class Borrow extends React.Component{
 
 	render() {
 		const { data, user } = this.props;
-		const { borrowList , filteredBooks , gettingBooks } = this.state;
+		const { borrowList , filteredBooks , gettingBooks, shouldRedirect } = this.state;
 		const {
 			handleBorrow ,
 			addToBorrowList ,
 			removeFromBorrowList,
 			handleFilter } = this;
+
+		if( shouldRedirect ){
+			return <Redirect push to="/"/>
+		}
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>

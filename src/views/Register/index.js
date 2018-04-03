@@ -3,28 +3,39 @@ import { BasePage } from "..";
 import { Field , Form } from "../../collections";
 import { Input , Label , ComboBox , Button } from "../../components";
 import {RESTResolver} from "../../resources/RESTResolver";
+import { Redirect } from 'react-router-dom';
 
 class Register extends React.Component{
 	constructor(props){
 		super(props);
-		this.state={}
+		this.state={
+			shouldRedirect: false
+		};
 		this.restresolver = new RESTResolver();
 	}
 
 	handleSubmit = (e,state) =>{
 		this.restresolver.addUser(state, (response) => {
 			console.log(response);
+			this.setState({
+				shouldRedirect: true
+			});
 		});
 	};
 
 	render() {
 		const { data, user } = this.props;
 		const { handleSubmit } = this;
+		const { shouldRedirect } = this.state;
 
 		const ops = [
 			{value: "Administrador", label:"Administrador"},
 			{value: "Prestamista", label:"Prestamista"}
 		];
+
+		if( shouldRedirect ){
+			return <Redirect push to="/"/>
+		}
 
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
