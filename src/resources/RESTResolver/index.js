@@ -3,7 +3,7 @@ import data from '../data.json';
 
 export class RESTResolver {
 	constructor() {
-		const { host, getbooks, getbook, gethistorial, getuser, getauthors, login, addbook, adduser, deletebook, borrow } = data;
+		const { host, getbooks, getbook, gethistorial, getuser, getauthors, login, addbook, adduser, deletebook, borrow, returnbook } = data;
 
 		this.bookspath = (host + getbooks);
 		this.bookpath = (host + getbook);
@@ -15,6 +15,7 @@ export class RESTResolver {
 		this.adduserpath = (host + adduser);
 		this.deletebookpath = (host + deletebook);
 		this.borrowpath = (host + borrow);
+		this.returnpath = (host + returnbook);
 	}
 
 	getBooks = (success, error) => {
@@ -133,6 +134,19 @@ export class RESTResolver {
 			timeout: 2000,
 			data: JSON.stringify(data),
 			url: this.borrowpath,
+			success: success,
+			error: error
+		});
+	};
+
+	returnBook = (data, success, error) => {
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json',
+			type: "PUT",
+			timeout: 2000,
+			data: JSON.stringify(data),
+			url: this.returnpath,
 			success: success,
 			error: error
 		});

@@ -76,9 +76,15 @@ class Borrow extends React.Component{
 	handleBorrow = (e,state) =>{
 		const data = {
 			responsable: state.documento,
-			libros: this.state.borrowIDs
+			librosPrestamo: this.state.borrowIDs.map((book, i) => {
+				return {
+					id: book
+				};
+			})
 		};
-		console.log(data);
+		this.restResolver.borrow(data, (response) => {
+			console.log(response);
+		});
 	};
 
 	handleFilter = (obj) =>{

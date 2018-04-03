@@ -28,8 +28,13 @@ class Return extends React.Component{
 	};
 
 	handleSubmit = (e,state) =>{
-		console.log(state);
-		console.log("Please implement me handleSubmit");
+		const data = {
+			libroId: state.book.id,
+			responsable: state.document
+		};
+		this.restResolver.returnBook(data, (response) => {
+			console.log(response);
+		});
 	};
 
 	render(){

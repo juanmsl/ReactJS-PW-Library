@@ -11,5 +11,6 @@
   "addbook": "/libro",
   "adduser": "/registro",
   "deletebook": "/libro",
-  "borrow": "/prestamo"
+  "borrow": "/prestamo",
+  "returnbook": "/prestamo"
 }
