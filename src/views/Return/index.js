@@ -46,19 +46,19 @@ class Return extends React.Component{
 				<main className="maincontent">
 					<h1 className="underline">Devolver un libro</h1>
 					<section className="pw-form-container">
-						<Form onSubmit={handleSubmit} className="pw-form" autocomplete="off">
-							<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
+						<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
+							<Form onSubmit={handleSubmit} className="pw-form" autocomplete="off">
 								<Field>
 									<ComboBox id="book-input" name="book" options={bookList} className="pw-input" required={true} emptyMessage="-- No hay libros que retornar --"/>
 									<Label id="book-label" htmlFor="book-input" className="pw-label pwi pwi-user"/>
 								</Field>
-							</LoadSection>
-							<Field>
-								<Input id="document-input" name="document" placeholder="Usuario" className="pw-input" required={true}/>
-								<Label id="document-label" htmlFor="document-input" className="pw-label pwi pwi-user"/>
-							</Field>
-							<Button submit className="pw-button wh-button active shadow">Registrar devolución</Button>
-						</Form>
+								<Field>
+									<Input id="document-input" name="document" placeholder="Usuario" className="pw-input" required={true}/>
+									<Label id="document-label" htmlFor="document-input" className="pw-label pwi pwi-user"/>
+								</Field>
+								<Button submit className="pw-button wh-button active shadow">Registrar devolución</Button>
+							</Form>
+						</LoadSection>
 					</section>
 				</main>
 			</BasePage>
