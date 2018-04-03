@@ -39,7 +39,7 @@ class Home extends React.Component{
 			shouldRedirect: true,
 			to: obj.id
 		})
-	}
+	};
 
 	handleFilter = (obj) => {
 		this.setState({
@@ -51,13 +51,19 @@ class Home extends React.Component{
 				return (name.includes(filter) )
 			})
 		})
-	}
+	};
+
+	onDeleteBook = (e, state) => {
+		this.restResolver.deleteBook(state, (response) => {
+			console.log(response);
+		});
+	};
 
 	render() {
 		const { data, user } = this.props;
 		const { filteredBooks, gettingBooks, shouldRedirect, to } = this.state;
-		const { type } = user;
-		const { handleBookClick , handleFilter } = this;
+		const { tipo } = user;
+		const { handleBookClick , handleFilter, onDeleteBook } = this;
 
 		if( shouldRedirect ){
 			return <Redirect push to={`book/${to}`}/>
@@ -66,14 +72,14 @@ class Home extends React.Component{
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent">
 					<section className="pw-button-container">
-						{ type === "admin" && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
-						{ type === "admin" && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
-						{ type === "prestamista" && <Link to="/borrow" className="pw-button wh-button success shadow">Relizar un prestamo</Link> }
-						{ type === "prestamista" && <Link to="/return" className="pw-button wh-button active shadow">Relizar una devolución</Link> }
+						{ tipo === "Administrador" && <Link to="/book" className="pw-button wh-button success shadow">Agregar un libro</Link> }
+						{ tipo === "Administrador" && <Link to="/register" className="pw-button wh-button active shadow">Agregar un usuario</Link> }
+						{ tipo === "Prestamista" && <Link to="/borrow" className="pw-button wh-button success shadow">Relizar un prestamo</Link> }
+						{ tipo === "Prestamista" && <Link to="/return" className="pw-button wh-button active shadow">Relizar una devolución</Link> }
 					</section>
-					<SearchBar typeUser={type} onChange={handleFilter} />
+					<SearchBar typeUser={tipo} onChange={handleFilter} />
 					<LoadSection loading={gettingBooks === 'pending'} error={gettingBooks === 'error'}>
-						<BookList onBookClick={handleBookClick} books={filteredBooks} showButtons={type === "admin"}/>
+						<BookList onBookClick={handleBookClick} onDeleteBook={onDeleteBook} books={filteredBooks} showButtons={tipo === "Administrador"}/>
 					</LoadSection>
 				</main>
 			</BasePage>

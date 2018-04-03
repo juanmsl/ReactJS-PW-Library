@@ -74,7 +74,11 @@ class Borrow extends React.Component{
 	};
 
 	handleBorrow = () =>{
-		console.log("Please implement handleBorrow");
+		const data = {
+			responsable: "",
+			libros: this.state.borrowIDs
+		};
+		console.log(data);
 	};
 
 	handleFilter = (obj) =>{

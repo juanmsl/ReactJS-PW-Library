@@ -79,10 +79,15 @@ class Book extends React.Component{
 	handleSubmit = (e, state) =>{
 		let data = {
 			...state,
-			autores: this.state.selectedAuthors
+			autores: this.state.selectedAuthors.map((author, i) => {
+				return {
+					nombre: author
+				}
+			})
 		};
-		console.log(data);
-		console.log("Please implement submit method");
+		this.restResolver.addBook(data, (response) => {
+			console.log(response);
+		});
 	};
 
 	render() {
@@ -101,7 +106,7 @@ class Book extends React.Component{
 						<section className="pw-form-container">
 							<Form onSubmit={handleSubmit} className="pw-form" autocomplete="off">
 								<Field>
-									<Input id="title-input" name="title" placeholder="Titulo" className="pw-input" required={true} />
+									<Input id="title-input" name="nombre" placeholder="Titulo" className="pw-input" required={true} />
 									<Label id="title-label" htmlFor="title-input" className="pw-label pwi pwi-book"/>
 								</Field>
 								<Field>
