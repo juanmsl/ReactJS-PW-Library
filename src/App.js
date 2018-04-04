@@ -2,11 +2,11 @@ import React from 'react'
 import { BrowserRouter , Redirect , Route , Switch } from 'react-router-dom'
 import { Book , BookID , Borrow , Home , Login , Register , Return , Root } from './views'
 
-class Logout extends React.Component {
+class ActionComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
-		this.props.logout();
+		this.props.action();
 	}
 
 	render() {
@@ -28,7 +28,7 @@ class App extends React.Component{
 	};
 
 	renderLogin = () => {
-		return <Login {...this.state} />;
+		return <Login {...this.state} login={this.login} />;
 	};
 
 	renderHome = () => {
@@ -56,7 +56,14 @@ class App extends React.Component{
 	};
 
 	renderLogout = () => {
-		return <Logout logout={this.logout}/>
+		return <ActionComponent action={this.logout}/>
+	};
+
+	login = (user) => {
+		console.log(user);
+		this.setState({
+			user: user
+		});
 	};
 
 	logout = () => {
@@ -77,7 +84,7 @@ class App extends React.Component{
 					<Route render={ () => {return <Redirect to={'/'}/>} }/>
 				</Switch>
 			)
-		} else if ( user.type === "prestamista") {
+		} else if ( user.tipo === "Prestamista") {
 			return(
 				<Switch>
 					<Route exact path={"/home"} render={this.renderHome} />
@@ -88,7 +95,7 @@ class App extends React.Component{
 					<Route render={ () => {return <Redirect to={'/home'}/>} }/>
 				</Switch>
 			)
-		} else if ( user.type === "admin") {
+		} else if ( user.tipo === "Administrador") {
 			return(
 				<Switch>
 					<Route exact path={"/home"} render={this.renderHome} />

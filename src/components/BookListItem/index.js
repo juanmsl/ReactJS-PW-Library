@@ -25,7 +25,7 @@ class BookListItem extends React.Component{
 
     handleDelete=(e, obj)=>{
         if( this.props.onDelete ){
-            this.props.onDelete(e,{
+            this.props.onDelete(e, {
                 ...this.state.info
             })
         }

@@ -67,7 +67,7 @@ class BookID extends React.Component {
 		const { renderAutores, renderHistory, handleEdit, handleDelete } = this;
 		const { data, user } = this.props;
 		const { nombre, isbn, gettingBook } = this.state;
-		let userType = user? user.type : "";
+		let userType = user? user.tipo : "";
 		return(
 			<BasePage footer={true} navbar={true} data={data} user={user}>
 				<main className="maincontent">
@@ -88,7 +88,7 @@ class BookID extends React.Component {
 								</LoadSection>
 							</section>
 							<section className="pw-book-buttons">
-								{ userType === "admin" &&
+								{ userType === "Administrador" &&
 									<React.Fragment>
 										<button className="wh-button shadow active" onClick={handleEdit}>Editar</button>
 										<button className="wh-button shadow alert" onClick={handleDelete}>Borrar</button>

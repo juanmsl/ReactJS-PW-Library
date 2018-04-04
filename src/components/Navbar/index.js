@@ -13,8 +13,8 @@ class Navbar extends React.Component {
 					{
 						user !== null &&
 						<React.Fragment>
-							{ user.type !== undefined && <section className="pw-navbar-section">{user.type}</section> }
-							{ user.nombre !== undefined && <section className="pw-navbar-section">{user.nombre}</section> }
+							{ user.tipo !== undefined && <section className="pw-navbar-section">{user.tipo}</section> }
+							{ user.nombres !== undefined && <section className="pw-navbar-section">{user.nombres}</section> }
 						</React.Fragment>
 					}
 				</Link>
