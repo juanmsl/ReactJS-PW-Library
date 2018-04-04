@@ -60,6 +60,7 @@ class App extends React.Component{
 	};
 
 	login = (user) => {
+		console.log(user);
 		this.setState({
 			user: user
 		});

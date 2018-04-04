@@ -13,7 +13,10 @@ class Login extends React.Component{
 
 	handleSubmit = (e,state) =>{
 		this.restresolver.login(state, (response) => {
-        	this.props.login(response);
+			console.log(response);
+			if(response.status !== "404") {
+				this.props.login(response);
+			}
 		});
 	};
 
